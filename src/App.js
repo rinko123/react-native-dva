@@ -1,9 +1,9 @@
 import React from 'react';
 import dva from './utils/dva';
-import Router from './routes';
+import Router from './routes/router';
 
-import Home from './models/Home';
-import Mine from './models/Mine';
+import Home from './models/home';
+import Mine from './models/mine';
 
 const app = dva({
   models: [Home, Mine],

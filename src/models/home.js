@@ -1,22 +1,20 @@
-import {
-  FETCH_HOME_NAME,
-  SET_HOME_NAME,
-} from '../constants/ActionTypes';
-
-import {
-  fetchHomeName,
-} from '../services/HomeService';
+import { fetchHomeName } from "../services/HomeService";
 
 export default {
-  namespace: 'home',
+  namespace: "home",
   state: {
-    name: 'wy', // 名字
+    name: "asjksldasld" // 名字
   },
   reducers: {
     /**
      * 处理同步的action
      */
-    [SET_HOME_NAME](state, { payload: { name } }) {
+    setHomeName(
+      state,
+      {
+        payload: { name }
+      }
+    ) {
       return { ...state, name };
     }
   },
@@ -26,7 +24,7 @@ export default {
      * 主要使用redux-saga
      * 语法就是 es6 generator
      */
-    * [FETCH_HOME_NAME]({ payload }, { call, put, select }) {
+    *fetchHomeName({ payload }, { call, put, select }) {
       /**
        * call 调用自己定义的业务方法
        * put 发起action
@@ -35,9 +33,9 @@ export default {
       const name = yield call(fetchHomeName);
       console.log(name);
       yield put({
-        type: SET_HOME_NAME,
-        payload: { name },
-      })
+        type: "setHomeName",
+        payload: { name }
+      });
     }
-  },
-}
+  }
+};

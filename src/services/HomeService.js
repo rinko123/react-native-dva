@@ -5,7 +5,7 @@
 export function fetchHomeName() {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve('brotherWang <-- 点我')
+      resolve('brotherWang1234 <-- 点我')
     }, 1000);
   });
 }

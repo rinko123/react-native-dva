@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Text, View, Image, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { scaleSize } from '../utils/ScreenUtil';
-import icon from '../assets/image/mine.png';
 import pxToDp from "../utils/pxToDp";
 import {  YellowBox } from 'react-native';
 
@@ -25,7 +24,7 @@ class Practice extends Component {
         headerRight: <View />,
         tabBarIcon: ({ tintColor }) => (
             <Image
-                source={icon}
+                source={require('../images/mine-tab.png')}
                 style={[styles.icon, { tintColor: tintColor }]}
             />
         ),

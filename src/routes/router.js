@@ -3,9 +3,9 @@ import { connect } from "../utils/dva";
 import React, { Component } from "react";
 import { scaleSize } from "../utils/ScreenUtil";
 
-import Home from "../pages/Home";
-import Mine from "../pages/Mine";
-import Practice from "../pages/Practice";
+import Hall from "../containers/Hall";
+import Myself from "../containers/Myself";
+import Practice from "../containers/Practice";
 
 import Pages from "../config/routerConfig";
 
@@ -14,7 +14,7 @@ class Router extends Component {
     return TabNavigator(
       {
         首页: {
-          screen: Home,
+          screen: Hall,
           navigationOptions: {
             header: null
           }
@@ -23,9 +23,9 @@ class Router extends Component {
           screen: Practice
         },
         我的: {
-          screen: Mine,
+          screen: Myself,
           navigationOptions: {
-            header: null
+            // header: null
           }
         }
       },
@@ -46,12 +46,12 @@ class Router extends Component {
             height: 0
           },
           style: {
-            height: scaleSize(88),
+            height: scaleSize(120),
             backgroundColor: "#fff"
           },
           iconStyle: {
-            width: scaleSize(40),
-            height: scaleSize(40)
+            width: scaleSize(70),
+            height: scaleSize(70)
           },
           labelStyle: {
             marginTop: scaleSize(0),

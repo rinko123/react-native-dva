@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 import { Text, View, StyleSheet, Image } from "react-native";
-import { connect } from "../utils/dva";
+import { connect } from "react-redux";
 import { scaleSize } from "../utils/ScreenUtil";
-import icon from "../assets/image/home.png";
-import { FETCH_HOME_NAME } from "../constants/ActionTypes";
-import pxToDp from "../utils/pxToDp"
+import { NavigationActions, createaction } from "../utils/index";
 
-
-class Home extends Component {
+@connect(({ home }) => ({ home }))
+class Hall extends Component {
   static navigationOptions = {
     tabBarIcon: ({ tintColor }) => (
-      <Image source={icon} style={[styles.icon, { tintColor: tintColor }]} />
+      <Image
+        source={require("../images/home-tab.png")}
+        style={[styles.icon, { tintColor: tintColor }]}
+      />
     )
   };
 
@@ -26,23 +27,24 @@ class Home extends Component {
      * 一定要写namespace
      */
     dispatch({
-      type: `home/${FETCH_HOME_NAME}`
+      type: `home/fetchHomeName`
     });
   }
 
-  goNext() {
+  goNext = () => {
     const { navigation } = this.props;
     /**
      * 页面跳转，传值
      */
     navigation.navigate("HomeNext", { name: "我是下一页" });
-  }
+  };
 
   render() {
-    const { name } = this.props;
+    const { name } = this.props.home;
     return (
       <View style={styles.wrapper}>
         <Text onPress={this.goNext}>{name}</Text>
+        <Text onPress={this.goNext}>1111</Text>
       </View>
     );
   }
@@ -60,10 +62,4 @@ const styles = StyleSheet.create({
   }
 });
 
-function mapStateToProps(state) {
-  return {
-    name: state.home.name // state 映射到 props
-  };
-}
-
-export default connect(mapStateToProps)(Home);
+export default Hall;
