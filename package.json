@@ -8,14 +8,17 @@
     "precommit": "yarn format"
   },
   "dependencies": {
-    "antd-mobile-rn": "^2.2.1",
+    "antd-mobile-rn": "^2.2.0",
     "dva-core": "^1.1.0",
-    "rc-form": "^2.2.1",
+    "qs": "^6.5.2",
+    "rc-form": "^2.2.0",
     "react": "^16.3.0-alpha.0",
     "react-native": "^0.55.4",
     "react-native-root-toast": "^3.0.1",
-    "react-navigation": "^1.0.0-beta.27",
-    "react-redux": "^5.0.6"
+    "react-navigation": "^1.5.11",
+    "react-navigation-redux-helpers": "^1.0.3",
+    "react-redux": "^5.0.7",
+    "whatwg-fetch": "^2.0.4"
   },
   "jest": {
     "preset": "react-native"

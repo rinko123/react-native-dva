@@ -10,18 +10,10 @@ import pxToDp from '../utils/pxToDp';
 const Item = List.Item;
 const Brief = Item.Brief;
 
-function formatDate(date) {
-  /* eslint no-confusing-arrow: 0 */
-  const pad = n => (n < 10 ? `0${n}` : n);
-  const dateStr = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
-  const timeStr = `${pad(date.getHours())}:${pad(date.getMinutes())}`;
-  return `${dateStr} ${timeStr}`;
-}
-
 /**
  *
  */
-@connect(({ auth, asset }) => ({ auth, asset }))
+@connect()
 class ZGroupList extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerTitle: (

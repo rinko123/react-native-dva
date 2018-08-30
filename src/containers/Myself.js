@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import { Text, View, Image, StyleSheet } from "react-native";
 import { List } from "antd-mobile-rn";
 import { connect } from "react-redux";
-import { scaleSize } from "../utils/ScreenUtil";
 import pxToDp from "../utils/pxToDp";
 import { NavigationActions } from "../utils/index";
 
 const { Item } = List;
 
+@connect()
 class Myself extends Component {
   static navigationOptions = {
     headerTitle: (
@@ -15,14 +15,13 @@ class Myself extends Component {
         style={{
           flex: 1,
           textAlign: "center",
-          fontSize: scaleSize(36),
+          fontSize: pxToDp(36),
           color: "rgb(102,102,102)"
         }}
       >
         我的
       </Text>
     ),
-    headerRight: <View />,
     tabBarIcon: ({ tintColor }) => (
       <Image
         source={require("../images/mine-tab.png")}
@@ -32,8 +31,9 @@ class Myself extends Component {
   };
 
   gotoWordGroup = () => {
-    const { dispatch } = this.props;
+    const { dispatch,navigation } = this.props;
     dispatch(NavigationActions.navigate({ routeName: "ZGroupList" }));
+    //   navigation.navigate("ZGroupList");
   };
 
   render() {
@@ -41,7 +41,7 @@ class Myself extends Component {
       <View style={styles.wrapper}>
         {/*<Image*/}
         {/*source={require("../image/mine.jpg")}*/}
-        {/*style={{height:scaleSize(530),width:scaleSize(750)}}*/}
+        {/*style={{height:pxToDp(530),width:pxToDp(750)}}*/}
         {/*/>*/}
         <View
           style={{
@@ -73,8 +73,8 @@ class Myself extends Component {
 
 const styles = StyleSheet.create({
   icon: {
-    width: scaleSize(40),
-    height: scaleSize(40)
+    width: pxToDp(40),
+    height: pxToDp(40)
   },
   wrapper: {
     flex: 1

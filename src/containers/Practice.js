@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, Image, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { scaleSize } from '../utils/ScreenUtil';
 import pxToDp from "../utils/pxToDp";
 import {  YellowBox } from 'react-native';
 
@@ -14,14 +13,13 @@ class Practice extends Component {
                 style={{
                     flex: 1,
                     textAlign: "center",
-                    fontSize: scaleSize(36),
+                    fontSize: pxToDp(36),
                     color: "rgb(102,102,102)"
                 }}
             >
                 发布
             </Text>
         ),
-        headerRight: <View />,
         tabBarIcon: ({ tintColor }) => (
             <Image
                 source={require('../images/mine-tab.png')}
@@ -41,8 +39,8 @@ class Practice extends Component {
 
 const styles = StyleSheet.create({
     icon: {
-        width: scaleSize(40),
-        height: scaleSize(40),
+        width: pxToDp(40),
+        height: pxToDp(40),
     },
     wrapper: {
         flex: 1,
