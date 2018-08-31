@@ -1,34 +1,44 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import { Button, List, Picker, InputItem } from 'antd-mobile-rn';
-import { createForm } from 'rc-form';
-import Toast from 'react-native-root-toast';
-import pxToDp from '../utils/pxToDp';
-import { NavigationActions, createAction, Storage } from '../utils';
-import { BottomSingleButton } from '../components/BottomSingleButton';
-import { connect } from '../utils/dva';
+import React, { Component } from "react";
+import { StyleSheet, View, Text } from "react-native";
+import { Button, List, Picker, InputItem } from "antd-mobile-rn";
+import { createForm } from "rc-form";
+import Toast from "react-native-root-toast";
+import pxToDp from "../utils/pxToDp";
+import { NavigationActions, createAction, Storage } from "../utils";
+import { BottomSingleButton } from "../components/BottomSingleButton";
+import { connect } from "../utils/dva";
 
 /**
  *
  */
 @createForm()
-@connect()
+@connect(({ rinko }) => ({ rinko }))
 class ZAddWord extends Component {
   static navigationOptions = {
     headerTitle: (
       <Text
-        style={{ flex: 1, textAlign: 'center', fontSize: pxToDp(36), color: 'rgb(255,255,255)' }}
+        style={{
+          flex: 1,
+          textAlign: "center",
+          fontSize: pxToDp(36),
+          color: "rgb(255,255,255)"
+        }}
       >
         添加单词
       </Text>
     ),
-    headerRight: <View />,
+    headerRight: <View />
   };
 
   componentWillMount() {}
 
+  // 添加单词
   handleAdd = () => {
-    const { form, dispatch } = this.props;
+    const {
+      rinko: { words },
+      form,
+      dispatch
+    } = this.props;
     const { params } = this.props.navigation.state;
     if (params && params.group && params.group.id) {
       form.validateFields((err, values) => {
@@ -40,29 +50,31 @@ class ZAddWord extends Component {
             alias: values.alias,
             tone: values.tone,
             mean: values.mean,
+            id: new Date().getTime()
           };
-          Storage.get('words').then(oldWords => {
-            Storage.set('words', oldWords.concat(word));
-            const resetAction = NavigationActions.reset({
-              index: 2,
-              actions: [
-                NavigationActions.navigate({
-                  routeName: 'HomeNavigator',
-                  action: NavigationActions.navigate({ routeName: 'Myself' }),
-                }),
-                NavigationActions.navigate({ routeName: 'ZGroupList' }),
-                NavigationActions.navigate({
-                  routeName: 'ZGroupDetail',
-                  params: { group: params.group },
-                }),
-              ],
-            });
-            dispatch(resetAction);
+          debugger;
+          dispatch(
+            createAction("rinko/updateState")({ words: [...words, word] })
+          );
+          const resetAction = NavigationActions.reset({
+            index: 2,
+            actions: [
+              NavigationActions.navigate({
+                routeName: "HomeNavigator",
+                action: NavigationActions.navigate({ routeName: "Myself" })
+              }),
+              NavigationActions.navigate({ routeName: "ZGroupList" }),
+              NavigationActions.navigate({
+                routeName: "ZGroupDetail",
+                params: { group: params.group }
+              })
+            ]
           });
+          dispatch(resetAction);
         }
       });
     } else {
-      Toast.show('出现了一个bug！');
+      Toast.show("出现了一个bug！");
     }
   };
 
@@ -72,13 +84,13 @@ class ZAddWord extends Component {
       <View>
         <List>
           <InputItem
-            {...getFieldProps('word', {
+            {...getFieldProps("word", {
               rules: [
                 {
                   required: true,
-                  message: '请输入单词',
-                },
-              ],
+                  message: "请输入单词"
+                }
+              ]
             })}
             placeholder="请输入"
           >
@@ -86,18 +98,18 @@ class ZAddWord extends Component {
           </InputItem>
           <View style={styles.inputErrWrap}>
             <Text style={styles.inputErr}>
-              {getFieldError('word') ? getFieldError('word').join(',') : ''}
+              {getFieldError("word") ? getFieldError("word").join(",") : ""}
             </Text>
           </View>
 
           <InputItem
-            {...getFieldProps('alias', {
+            {...getFieldProps("alias", {
               rules: [
                 {
                   required: true,
-                  message: '请输入假名',
-                },
-              ],
+                  message: "请输入假名"
+                }
+              ]
             })}
             placeholder="请输入"
           >
@@ -105,37 +117,38 @@ class ZAddWord extends Component {
           </InputItem>
           <View style={styles.inputErrWrap}>
             <Text style={styles.inputErr}>
-              {getFieldError('alias') ? getFieldError('alias').join(',') : ''}
+              {getFieldError("alias") ? getFieldError("alias").join(",") : ""}
             </Text>
           </View>
 
           <InputItem
-            {...getFieldProps('tone', {
+            {...getFieldProps("tone", {
               rules: [
                 {
                   required: true,
-                  message: '请输入声调',
-                },
-              ],
+                  message: "请输入声调"
+                }
+              ]
             })}
+            type="number"
             placeholder="请输入"
           >
             <Text style={styles.inputT}>声调</Text>
           </InputItem>
           <View style={styles.inputErrWrap}>
             <Text style={styles.inputErr}>
-              {getFieldError('tone') ? getFieldError('tone').join(',') : ''}
+              {getFieldError("tone") ? getFieldError("tone").join(",") : ""}
             </Text>
           </View>
 
           <InputItem
-            {...getFieldProps('mean', {
+            {...getFieldProps("mean", {
               rules: [
                 {
                   required: true,
-                  message: '请输入释义',
-                },
-              ],
+                  message: "请输入释义"
+                }
+              ]
             })}
             placeholder="请输入"
           >
@@ -143,7 +156,7 @@ class ZAddWord extends Component {
           </InputItem>
           <View style={styles.inputErrWrap}>
             <Text style={styles.inputErr}>
-              {getFieldError('mean') ? getFieldError('mean').join(',') : ''}
+              {getFieldError("mean") ? getFieldError("mean").join(",") : ""}
             </Text>
           </View>
 
@@ -157,26 +170,26 @@ class ZAddWord extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'rgb(244,245,248)',
+    backgroundColor: "rgb(244,245,248)"
   },
   lastbtn: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: "row",
+    justifyContent: "center"
   },
   inputErrWrap: {
     height: pxToDp(30),
-    flexDirection: 'row-reverse',
-    alignItems: 'center',
-    paddingLeft: pxToDp(26),
+    flexDirection: "row-reverse",
+    alignItems: "center",
+    paddingLeft: pxToDp(26)
   },
   inputErr: {
-    color: 'rgb(255,106,110)',
-    fontSize: pxToDp(24),
+    color: "rgb(255,106,110)",
+    fontSize: pxToDp(24)
   },
   inputT: {
     fontSize: pxToDp(34),
-    color: 'rgb(51,51,51)',
-  },
+    color: "rgb(51,51,51)"
+  }
 });
 
 export default ZAddWord;
