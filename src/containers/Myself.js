@@ -16,7 +16,7 @@ class Myself extends Component {
           flex: 1,
           textAlign: "center",
           fontSize: pxToDp(36),
-          color: "rgb(102,102,102)"
+          color: "rgb(255,255,255)"
         }}
       >
         我的
@@ -39,16 +39,9 @@ class Myself extends Component {
   render() {
     return (
       <View style={styles.wrapper}>
-        {/*<Image*/}
-        {/*source={require("../image/mine.jpg")}*/}
-        {/*style={{height:pxToDp(530),width:pxToDp(750)}}*/}
-        {/*/>*/}
-        <View
-          style={{
-            height: pxToDp(530),
-            width: pxToDp(750),
-            backgroundColor: "steelblue"
-          }}
+        <Image
+        source={require("../images/mine.jpg")}
+        style={{height:pxToDp(530),width:pxToDp(750)}}
         />
         <View style={styles.contentList}>
           <List className="my-list">

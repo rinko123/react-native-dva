@@ -9,7 +9,7 @@ export default {
         groupId: 1,
         word: "アサ先生",
         alias: "アサせんせい",
-        tone: 0,
+        tone: '0',
         mean: "阿佐老师",
         id: 1
       },
@@ -17,7 +17,7 @@ export default {
         groupId: 2,
         word: "アサ先生21",
         alias: "アサせんせい21",
-        tone: 1,
+        tone: '1',
         mean: "阿佐老师21",
         id: 2
       },
@@ -25,7 +25,7 @@ export default {
         groupId: 2,
         word: "アサ先生22",
         alias: "アサせんせい22",
-        tone: 2,
+        tone: '2',
         mean: "阿佐老师22",
         id: 3
       },
@@ -34,7 +34,7 @@ export default {
         groupId: 3,
         word: "アサ先生31",
         alias: "アサせんせい31",
-        tone: 3,
+        tone: '3',
         mean: "阿佐老师31",
         id: 4
       },
@@ -42,7 +42,7 @@ export default {
         groupId: 3,
         word: "アサ先生32",
         alias: "アサせんせい32",
-        tone: 4,
+        tone: '4',
         mean: "阿佐老师32",
         id: 5
       },
@@ -50,7 +50,7 @@ export default {
         groupId: 3,
         word: "アサ先生33",
         alias: "アサせんせい33",
-        tone: 5,
+        tone: '5',
         mean: "阿佐老师33",
         id: 6
       }
@@ -60,10 +60,11 @@ export default {
       { name: "2", desc: "2", id: 2 },
       { name: "3", desc: "3", id: 3 }
     ]
+    //   words:[],
+    //   groups:[],
   },
   reducers: {
     updateState(state, { payload }) {
-      debugger;
       return { ...state, ...payload };
     }
   },

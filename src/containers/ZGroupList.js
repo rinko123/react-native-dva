@@ -165,7 +165,7 @@ class ZGroupList extends Component {
                 arrow="horizontal"
                 onClick={this.gotoZGroupDetail(item)}
               >
-                {item.name}+{index}
+                {item.name}
               </List.Item>
             </SwipeAction>
           ))}

@@ -13,7 +13,7 @@ class Practice extends Component {
           flex: 1,
           textAlign: "center",
           fontSize: pxToDp(36),
-          color: "rgb(102,102,102)"
+          color: "rgb(255,255,255)"
         }}
       >
         发布

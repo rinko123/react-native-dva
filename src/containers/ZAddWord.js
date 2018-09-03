@@ -52,7 +52,6 @@ class ZAddWord extends Component {
             mean: values.mean,
             id: new Date().getTime()
           };
-          debugger;
           dispatch(
             createAction("rinko/updateState")({ words: [...words, word] })
           );

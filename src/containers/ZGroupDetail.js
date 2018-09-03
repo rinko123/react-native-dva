@@ -109,7 +109,7 @@ class ZGroupDetail extends Component {
                   <List.Item multipleLine extra={item.mean}>
                     {item.word}{" "}
                     <Brief>
-                      {item.alias}
+                      {item.alias}&nbsp;&nbsp;
                       {item.tone}
                     </Brief>
                   </List.Item>

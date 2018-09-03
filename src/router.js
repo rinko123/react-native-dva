@@ -22,7 +22,8 @@ import ZGroupList from "./containers/ZGroupList";
 import ZGroupDetail from "./containers/ZGroupDetail";
 import ZAddGroup from "./containers/ZAddGroup";
 import ZAddWord from "./containers/ZAddWord";
-import {Storage} from "./utils";
+import { Storage } from "./utils";
+import Toast from "react-native-root-toast";
 
 const HomeNavigator = TabNavigator(
   {
@@ -55,7 +56,8 @@ const MainNavigator = StackNavigator(
     navigationOptions: {
       headerBackTitle: null,
       headerStyle: {
-        backgroundColor: "#3087fc",
+        // backgroundColor: "#3087fc",
+        backgroundColor: "rgb(8,27,33)",
         borderBottomWidth: 0
       },
       headerTintColor: "#fff"
@@ -136,9 +138,9 @@ class Router extends PureComponent {
 
   _handleAppStateChange = nextAppState => {
     if (nextAppState === "background") {
-        Storage.set('groups1', this.props.rinko.groups);
-        Storage.set('words1', this.props.rinko.words);
-      console.log('更新完成');
+      Storage.set("groups", this.props.rinko.groups);
+      Storage.set("words", this.props.rinko.words);
+      console.log("更新完成 background");
     }
   };
 
@@ -148,7 +150,17 @@ class Router extends PureComponent {
       this.props.dispatch(NavigationActions.back());
       return true;
     }
-    return false;
+    if (this.lastBackPressed && this.lastBackPressed + 2000 >= Date.now()) {
+      //最近2秒内按过back键，可以退出应用。
+      return false;
+    }
+
+    Storage.set("groups", this.props.rinko.groups);
+    Storage.set("words", this.props.rinko.words);
+    console.log("更新完成 exit");
+    this.lastBackPressed = Date.now();
+    Toast.show("再按一次退出应用");
+    return true;
   };
 
   render() {
