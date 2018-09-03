@@ -160,13 +160,13 @@ class ZGroupList extends Component {
               onOpen={() => console.log("global open")}
               onClose={() => console.log("global close")}
             >
-              <List.Item
+              <Item
                 extra={item.desc}
                 arrow="horizontal"
                 onClick={this.gotoZGroupDetail(item)}
               >
                 {item.name}
-              </List.Item>
+              </Item>
             </SwipeAction>
           ))}
         </List>

@@ -50,7 +50,8 @@ class ZAddWord extends Component {
             alias: values.alias,
             tone: values.tone,
             mean: values.mean,
-            id: new Date().getTime()
+            id: new Date().getTime(),
+              familiar:true
           };
           dispatch(
             createAction("rinko/updateState")({ words: [...words, word] })

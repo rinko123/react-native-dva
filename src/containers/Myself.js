@@ -31,7 +31,7 @@ class Myself extends Component {
   };
 
   gotoWordGroup = () => {
-    const { dispatch,navigation } = this.props;
+    const { dispatch, navigation } = this.props;
     dispatch(NavigationActions.navigate({ routeName: "ZGroupList" }));
     //   navigation.navigate("ZGroupList");
   };
@@ -40,8 +40,8 @@ class Myself extends Component {
     return (
       <View style={styles.wrapper}>
         <Image
-        source={require("../images/mine.jpg")}
-        style={{height:pxToDp(530),width:pxToDp(750)}}
+          source={require("../images/mine.jpg")}
+          style={{ height: pxToDp(530), width: pxToDp(750) }}
         />
         <View style={styles.contentList}>
           <List className="my-list">
@@ -55,7 +55,7 @@ class Myself extends Component {
                 />
               }
             >
-              たんごグループ
+              课程单词
             </Item>
           </List>
         </View>

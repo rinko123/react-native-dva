@@ -9,50 +9,56 @@ export default {
         groupId: 1,
         word: "アサ先生",
         alias: "アサせんせい",
-        tone: '0',
+        tone: "0",
         mean: "阿佐老师",
-        id: 1
+        id: 1,
+        familiar: true
       },
       {
         groupId: 2,
         word: "アサ先生21",
         alias: "アサせんせい21",
-        tone: '1',
+        tone: "1",
         mean: "阿佐老师21",
-        id: 2
+        id: 2,
+        familiar: true
       },
       {
         groupId: 2,
         word: "アサ先生22",
         alias: "アサせんせい22",
-        tone: '2',
+        tone: "2",
         mean: "阿佐老师22",
-        id: 3
+        id: 3,
+        familiar: true
       },
 
       {
         groupId: 3,
         word: "アサ先生31",
         alias: "アサせんせい31",
-        tone: '3',
+        tone: "3",
         mean: "阿佐老师31",
-        id: 4
+        id: 4,
+        familiar: true
       },
       {
         groupId: 3,
         word: "アサ先生32",
         alias: "アサせんせい32",
-        tone: '4',
+        tone: "4",
         mean: "阿佐老师32",
-        id: 5
+        id: 5,
+        familiar: true
       },
       {
         groupId: 3,
         word: "アサ先生33",
         alias: "アサせんせい33",
-        tone: '5',
+        tone: "5",
         mean: "阿佐老师33",
-        id: 6
+        id: 6,
+        familiar: true
       }
     ],
     groups: [

@@ -22,7 +22,7 @@ import ZGroupList from "./containers/ZGroupList";
 import ZGroupDetail from "./containers/ZGroupDetail";
 import ZAddGroup from "./containers/ZAddGroup";
 import ZAddWord from "./containers/ZAddWord";
-import { Storage } from "./utils";
+import {createAction, Storage} from "./utils";
 import Toast from "react-native-root-toast";
 
 const HomeNavigator = TabNavigator(
@@ -123,6 +123,25 @@ const addListener = createReduxBoundAddListener("root");
 @connect(({ rinko, router }) => ({ rinko, router }))
 class Router extends PureComponent {
   componentWillMount() {
+    const {dispatch} = this.props;
+      Storage.get("groups").then(groups => {
+          if (groups) {
+              dispatch(
+                  createAction("rinko/updateState")({
+                      groups
+                  })
+              );
+          }
+      });
+      Storage.get("words").then(words => {
+          if (words) {
+              dispatch(
+                  createAction("rinko/updateState")({
+                      words
+                  })
+              );
+          }
+      });
     BackHandler.addEventListener("hardwareBackPress", this.backHandle);
   }
 

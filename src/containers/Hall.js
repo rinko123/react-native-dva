@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
-import { Accordion, List, Button } from "antd-mobile-rn";
+import { Accordion, List, Button, SwipeAction } from "antd-mobile-rn";
 import { connect } from "react-redux";
 import { NavigationActions, createAction } from "../utils/index";
 import pxToDp from "../utils/pxToDp";
@@ -70,7 +70,7 @@ class Hall extends Component {
           color: "rgb(255,255,255)"
         }}
       >
-        首页
+        首页拉麺機関
       </Text>
     ),
     headerRight: (
@@ -103,24 +103,6 @@ class Hall extends Component {
   componentWillMount() {
     _this = this;
     const { dispatch } = this.props;
-    Storage.get("groups").then(groups => {
-      if (groups) {
-        dispatch(
-          createAction("rinko/updateState")({
-            groups
-          })
-        );
-      }
-    });
-    Storage.get("words").then(words => {
-      if (words) {
-        dispatch(
-          createAction("rinko/updateState")({
-            words
-          })
-        );
-      }
-    });
   }
 
   goNext = () => {
@@ -137,7 +119,7 @@ class Hall extends Component {
 
   signTone = (alias, tone) => {
     const { toneShow } = this.state;
-    if (tone === 0 || tone === alias.length) {
+    if (tone === '0' || tone === alias.length) {
       return (
         <Text style={styles.blackT}>
           {alias.substr(0, 1)}
@@ -151,7 +133,7 @@ class Hall extends Component {
         </Text>
       );
     }
-    if (tone === 1) {
+    if (tone === '1') {
       return (
         <Text style={styles.blackT}>
           <Text style={toneShow && styles.redT}>{alias.substr(0, 1)}</Text>
@@ -179,6 +161,20 @@ class Hall extends Component {
     );
   };
 
+  // 传入id 和当前状态
+  collectWord = (id, bo) => () => {
+    const {
+      rinko: { words },
+      dispatch
+    } = this.props;
+    words.find(it => it.id === id).familiar = !bo;
+    dispatch(
+      createAction("rinko/updateState")({
+        words: words
+      })
+    );
+  };
+
   render() {
     const { wordShow, aliasShow, toneShow, meanShow } = this.state;
     const { groups, words } = this.props.rinko;
@@ -186,26 +182,49 @@ class Hall extends Component {
     groupWords.map(g => (g.words = words.filter(w => w.groupId === g.id)));
     return (
       <View style={styles.container}>
+        <Text style={{}}>首页拉麺機関</Text>
+        <Text style={{ fontFamily: "李旭科毛笔行书" }}>首页拉麺機関</Text>
+        <Text style={{ fontFamily: "HanaMin" }}>首页拉麺機関</Text>
         <Accordion onChange={this.onChange} defaultActiveKey="2">
           {groupWords.map(group => (
             <Panel key={group.id} header={group.name}>
               <List>
                 {group.words.map(word => (
-                  <Item
+                  <SwipeAction
                     key={word.id}
-                    multipleLine
-                    extra={meanShow && word.mean}
-                    style={{ height: pxToDp(120) }}
+                    style={{ backgroundColor: "gray" }}
+                    autoClose
+                    right={[
+                      {
+                        text: word.familiar ? "收藏" : "取消收藏",
+                        onPress: this.collectWord(word.id, word.familiar),
+                        style: {
+                          backgroundColor: word.familiar
+                            ? "rgb(236,55,48)"
+                            : "rgb(11,11,13)",
+                          color: "white"
+                        }
+                      }
+                    ]}
+                    onOpen={() => console.log("global open")}
+                    onClose={() => console.log("global close")}
                   >
-                    <Text onPress={() => console.log(word.word)}>
-                      {wordShow && word.word}
-                    </Text>
-                    {aliasShow && (
-                      <Brief style={{ width: pxToDp(400) }}>
-                        {this.signTone(word.alias, word.tone)}
-                      </Brief>
-                    )}
-                  </Item>
+                    <Item
+                      key={word.id}
+                      multipleLine
+                      extra={meanShow && word.mean}
+                      style={{ height: pxToDp(120) }}
+                    >
+                      <Text onPress={() => console.log(word.word)}>
+                        {wordShow && word.word}
+                      </Text>
+                      {aliasShow && (
+                        <Brief style={{ width: pxToDp(400) }}>
+                          {this.signTone(word.alias, word.tone)}
+                        </Brief>
+                      )}
+                    </Item>
+                  </SwipeAction>
                 ))}
               </List>
             </Panel>
