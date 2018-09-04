@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, Image, TouchableOpacity,ScrollView } from "react-native";
 import { Accordion, List, Button, SwipeAction } from "antd-mobile-rn";
 import { connect } from "react-redux";
 import { NavigationActions, createAction } from "../utils/index";
@@ -57,6 +57,7 @@ const toneData = [
   }
 ];
 
+// todo 筛选改为气泡 Popover
 @connect(({ rinko }) => ({ rinko }))
 class Hall extends Component {
   static navigationOptions = {
@@ -181,10 +182,11 @@ class Hall extends Component {
     const groupWords = [...groups];
     groupWords.map(g => (g.words = words.filter(w => w.groupId === g.id)));
     return (
+        <ScrollView>
       <View style={styles.container}>
-        <Text style={{}}>首页拉麺機関</Text>
-        <Text style={{ fontFamily: "李旭科毛笔行书" }}>首页拉麺機関</Text>
-        <Text style={{ fontFamily: "HanaMin" }}>首页拉麺機関</Text>
+        <Text style={styles.fam}>首页拉麺機関</Text>
+        <Text style={{ fontFamily: "日系中文毛笔行书",fontSize:pxToDp(50)}}>首页拉麺機関</Text>
+        <Text style={{ fontFamily: "日本花园明朝体HanaMin",fontSize:pxToDp(50) }}>首页拉麺機関</Text>
         <Accordion onChange={this.onChange} defaultActiveKey="2">
           {groupWords.map(group => (
             <Panel key={group.id} header={group.name}>
@@ -267,11 +269,16 @@ class Hall extends Component {
           </View>
         ) : null}
       </View>
+        </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
+    fam:{
+      fontFamily:'xinshu',
+        fontSize:pxToDp(50)
+    },
   icon: {
     width: pxToDp(40),
     height: pxToDp(40)

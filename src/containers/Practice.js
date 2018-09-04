@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { Text, View, Image, StyleSheet,ScrollView } from "react-native";
-import {List,Button,Drawer,WhiteSpace } from "antd-mobile-rn"
+import { Text, View, Image, StyleSheet, ScrollView } from "react-native";
+import { List, Button, Tag } from "antd-mobile-rn";
 import { connect } from "react-redux";
 import pxToDp from "../utils/pxToDp";
-import { YellowBox } from "react-native";
+import { createAction, NavigationActions } from "../utils";
 
+@connect(({ rinko }) => ({ rinko }))
 class Practice extends Component {
   static navigationOptions = {
     headerTitle: (
@@ -16,7 +17,7 @@ class Practice extends Component {
           color: "rgb(255,255,255)"
         }}
       >
-        发布
+        测试
       </Text>
     ),
     tabBarIcon: ({ tintColor }) => (
@@ -27,43 +28,258 @@ class Practice extends Component {
     )
   };
 
-
-
-    onOpenChange = (isOpen) => {
-        /* tslint:disable: no-console */
-        console.log('是否打开了 Drawer', isOpen.toString());
+  selectPracticeScope = isCourse => () => {
+    const {
+      rinko: { practiceOption },
+      dispatch
+    } = this.props;
+    dispatch(
+      createAction("rinko/updateState")({
+        practiceOption: { ...practiceOption, isCourse }
+      })
+    );
+  };
+  selectPracticeGroups = groupId => () => {
+    const {
+      rinko: { practiceOption },
+      dispatch
+    } = this.props;
+    let practiceGroups;
+    if (practiceOption.practiceGroups.indexOf(groupId) !== -1) {
+      practiceGroups = practiceOption.practiceGroups.filter(
+        it => it !== groupId
+      );
+    } else {
+      practiceGroups = [...practiceOption.practiceGroups, groupId];
     }
+    dispatch(
+      createAction("rinko/updateState")({
+        practiceOption: {
+          ...practiceOption,
+          practiceGroups
+        }
+      })
+    );
+  };
+  selectPracticeCount = practiceCount => () => {
+    const {
+      rinko: { practiceOption },
+      dispatch
+    } = this.props;
+    dispatch(
+      createAction("rinko/updateState")({
+        practiceOption: { ...practiceOption, practiceCount }
+      })
+    );
+  };
 
-    render() {
-        const sidebar = (
-            <View style ={{backgroundColor:'red'}}>
-                <List>
-                    <List.Item>qw</List.Item>
-                    <List.Item>er</List.Item>
-                    <List.Item>as</List.Item>
-                </List>
+  selectPracticeType = testWord => () => {
+    const {
+      rinko: { practiceOption },
+      dispatch
+    } = this.props;
+    dispatch(
+      createAction("rinko/updateState")({
+        practiceOption: { ...practiceOption, testWord }
+      })
+    );
+  };
+
+  resetDebtFilter = () => {
+    const { dispatch } = this.props;
+    dispatch(
+      createAction("rinko/updateState")({
+        practiceOption: {
+          isCourse: true,
+          practiceGroups: [],
+          practiceCount: 10,
+          testWord: true
+        }
+      })
+    );
+  };
+  // 筛选债权
+  handleDebtFilter = () => {
+    const { dispatch } = this.props;
+    dispatch(NavigationActions.navigate({ routeName: "PracticeContent" }));
+  };
+
+  render() {
+    const { practiceOption, words, groups } = this.props.rinko;
+    //获得哪些组里有单词/有收藏的单词
+    const courseGroups = groups.filter(it =>
+      words.find(word => word.groupId === it.id)
+    );
+    const collectGroups = groups.filter(it =>
+      words.find(word => word.groupId === it.id && word.familiar === false)
+    );
+    const practiceGroups = practiceOption.isCourse
+      ? courseGroups
+      : collectGroups;
+    return (
+      <View style={styles.container}>
+        <View style={styles.topV}>
+          <ScrollView style={styles.scrollV}>
+            <View style={styles.rateV}>
+              <Text style={styles.text}>测试范围</Text>
+              <View style={styles.rateBtnV}>
+                <Button
+                  style={[
+                    styles.btnmode,
+                    {
+                      backgroundColor:
+                        (practiceOption.isCourse && "rgb(218,234,255)") ||
+                        "white"
+                    }
+                  ]}
+                  activeStyle={false}
+                  onClick={this.selectPracticeScope(true)}
+                >
+                  <Text>课程</Text>
+                </Button>
+                <Button
+                  style={[
+                    styles.btnmode,
+                    {
+                      backgroundColor:
+                        (!practiceOption.isCourse && "rgb(218,234,255)") ||
+                        "white"
+                    }
+                  ]}
+                  activeStyle={false}
+                  onClick={this.selectPracticeScope(false)}
+                >
+                  <Text>收藏</Text>
+                </Button>
+              </View>
             </View>
-        );
-
-        return (
-            <Drawer
-                sidebar={sidebar}
-                position="right"
-                open={false}
-                drawerRef={(el) => (this.drawer = el)}
-                onOpenChange={this.onOpenChange}
-                drawerBackgroundColor="rgba(255,255,255,0)"
-                drawerWidth={pxToDp(100)}
-            >
-                <View style={{ flex: 1, marginTop: 114, padding: 8 }}>
-                    <Button onClick={() => this.drawer && this.drawer.openDrawer()}>
-                        Open drawer
-                    </Button>
-                    <WhiteSpace />
-                </View>
-            </Drawer>
-        );
-    }
+            <View style={styles.rateV}>
+              <Text style={styles.text}>选择抽查的组</Text>
+              <View style={styles.rateBtnV}>
+                {practiceGroups.map(g => (
+                  <Button
+                    style={[
+                      styles.btnmode,
+                      {
+                        backgroundColor:
+                          (practiceOption.practiceGroups.find(
+                            it => it === g.id
+                          ) &&
+                            "rgb(218,234,255)") ||
+                          "white"
+                      }
+                    ]}
+                    activeStyle={false}
+                    onClick={this.selectPracticeGroups(g.id)}
+                    key={g.id}
+                  >
+                    <Text>{g.name}</Text>
+                  </Button>
+                ))}
+              </View>
+            </View>
+            <View style={styles.rateV}>
+              <Text style={styles.text}>选择抽查单词总数</Text>
+              <View style={styles.rateBtnV}>
+                <Button
+                  style={[
+                    styles.btnmode,
+                    {
+                      backgroundColor:
+                        (practiceOption.practiceCount === 10 &&
+                          "rgb(218,234,255)") ||
+                        "white"
+                    }
+                  ]}
+                  activeStyle={false}
+                  onClick={this.selectPracticeCount(10)}
+                >
+                  <Text>10</Text>
+                </Button>
+                <Button
+                  style={[
+                    styles.btnmode,
+                    {
+                      backgroundColor:
+                        (practiceOption.practiceCount === 20 &&
+                          "rgb(218,234,255)") ||
+                        "white"
+                    }
+                  ]}
+                  activeStyle={false}
+                  onClick={this.selectPracticeCount(20)}
+                >
+                  <Text>20</Text>
+                </Button>
+                <Button
+                  style={[
+                    styles.btnmode,
+                    {
+                      backgroundColor:
+                        (practiceOption.practiceCount === 30 &&
+                          "rgb(218,234,255)") ||
+                        "white"
+                    }
+                  ]}
+                  activeStyle={false}
+                  onClick={this.selectPracticeCount(30)}
+                >
+                  <Text>30</Text>
+                </Button>
+              </View>
+            </View>
+            <View style={styles.rateV}>
+              <Text style={styles.text}>选择抽查单词总数</Text>
+              <View style={styles.rateBtnV}>
+                <Button
+                  style={[
+                    styles.btnmode,
+                    {
+                      backgroundColor:
+                        (practiceOption.testWord && "rgb(218,234,255)") ||
+                        "white"
+                    }
+                  ]}
+                  activeStyle={false}
+                  onClick={this.selectPracticeType(true)}
+                >
+                  <Text>测试单词</Text>
+                </Button>
+                <Button
+                  style={[
+                    styles.btnmode,
+                    {
+                      backgroundColor:
+                        (!practiceOption.testWord && "rgb(218,234,255)") ||
+                        "white"
+                    }
+                  ]}
+                  activeStyle={false}
+                  onClick={this.selectPracticeType(false)}
+                >
+                  <Text>测试意思</Text>
+                </Button>
+              </View>
+            </View>
+          </ScrollView>
+        </View>
+        <View style={styles.bottomV}>
+          <Button style={styles.bottomBtn} onClick={this.resetDebtFilter}>
+            <Text style={styles.resetT}>重置</Text>
+          </Button>
+          <Button
+            style={[
+              styles.bottomBtn,
+              { backgroundColor: "#0009ff", borderRadius: 0 }
+            ]}
+            onClick={this.handleDebtFilter}
+          >
+            <Text style={styles.confirmT}>确定</Text>
+          </Button>
+        </View>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -71,10 +287,50 @@ const styles = StyleSheet.create({
     width: pxToDp(40),
     height: pxToDp(40)
   },
-  wrapper: {
+  container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
+    flexDirection: "column",
+    backgroundColor: "#fff"
+  },
+  topV: {
+    flexGrow: 1
+  },
+  scrollV: {
+    flex: 1,
+    padding: pxToDp(26),
+    paddingTop: pxToDp(30)
+  },
+  bottomV: {
+    flexDirection: "row",
+    alignItems: "flex-end"
+  },
+  rateV: {
+    flexDirection: "column",
+    marginBottom: pxToDp(26)
+  },
+  rateBtnV: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginTop: pxToDp(10)
+  },
+  bottomBtn: {
+    flex: 1
+  },
+  btnmode: {
+    height: pxToDp(66),
+    width: pxToDp(220),
+    marginRight: pxToDp(10),
+    marginBottom: pxToDp(10)
+  },
+  text: {
+    fontSize: pxToDp(32),
+    color: "rgb(51,51,51)"
+  },
+  resetT: {
+    color: "rgb(170,170,170)"
+  },
+  confirmT: {
+    color: "rgb(255,255,255)"
   }
 });
 

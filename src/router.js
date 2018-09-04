@@ -22,7 +22,9 @@ import ZGroupList from "./containers/ZGroupList";
 import ZGroupDetail from "./containers/ZGroupDetail";
 import ZAddGroup from "./containers/ZAddGroup";
 import ZAddWord from "./containers/ZAddWord";
-import {createAction, Storage} from "./utils";
+import PracticeContent from "./containers/PracticeContent";
+import TestDrawer from "./containers/tests/TestDrawer";
+import { createAction, Storage } from "./utils";
 import Toast from "react-native-root-toast";
 
 const HomeNavigator = TabNavigator(
@@ -49,7 +51,8 @@ const MainNavigator = StackNavigator(
     ZGroupList: { screen: ZGroupList },
     ZGroupDetail: { screen: ZGroupDetail },
     ZAddGroup: { screen: ZAddGroup },
-    ZAddWord: { screen: ZAddWord }
+    ZAddWord: { screen: ZAddWord },
+    TestDrawer: { screen: TestDrawer }
   },
   {
     headerMode: "float",
@@ -68,7 +71,8 @@ const MainNavigator = StackNavigator(
 const AppNavigator = SwitchNavigator(
   {
     // 以下不能后退页面 禁止返回
-    Main: { screen: MainNavigator }
+    Main: { screen: MainNavigator },
+    PracticeContent: { screen: PracticeContent }
   },
   {
     headerMode: "none",
@@ -123,25 +127,25 @@ const addListener = createReduxBoundAddListener("root");
 @connect(({ rinko, router }) => ({ rinko, router }))
 class Router extends PureComponent {
   componentWillMount() {
-    const {dispatch} = this.props;
-      Storage.get("groups").then(groups => {
-          if (groups) {
-              dispatch(
-                  createAction("rinko/updateState")({
-                      groups
-                  })
-              );
-          }
-      });
-      Storage.get("words").then(words => {
-          if (words) {
-              dispatch(
-                  createAction("rinko/updateState")({
-                      words
-                  })
-              );
-          }
-      });
+    const { dispatch } = this.props;
+    Storage.get("groups").then(groups => {
+      if (groups) {
+        dispatch(
+          createAction("rinko/updateState")({
+            groups
+          })
+        );
+      }
+    });
+    Storage.get("words").then(words => {
+      if (words) {
+        dispatch(
+          createAction("rinko/updateState")({
+            words
+          })
+        );
+      }
+    });
     BackHandler.addEventListener("hardwareBackPress", this.backHandle);
   }
 

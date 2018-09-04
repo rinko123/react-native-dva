@@ -65,9 +65,15 @@ export default {
       { name: "1", desc: "1", id: 1 },
       { name: "2", desc: "2", id: 2 },
       { name: "3", desc: "3", id: 3 }
-    ]
+    ],
     //   words:[],
     //   groups:[],
+    practiceOption: {
+      isCourse: true,
+      practiceGroups: [],
+      practiceCount: 10,
+      testWord: true
+    }
   },
   reducers: {
     updateState(state, { payload }) {
