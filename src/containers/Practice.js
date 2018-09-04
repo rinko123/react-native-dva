@@ -229,7 +229,7 @@ class Practice extends Component {
               </View>
             </View>
             <View style={styles.rateV}>
-              <Text style={styles.text}>选择抽查单词总数</Text>
+              <Text style={styles.text}>选择抽查类型</Text>
               <View style={styles.rateBtnV}>
                 <Button
                   style={[
@@ -270,7 +270,7 @@ class Practice extends Component {
           <Button
             style={[
               styles.bottomBtn,
-              { backgroundColor: "#0009ff", borderRadius: 0 }
+              { backgroundColor: "rgb(135,211,207)", borderRadius: 0 }
             ]}
             onClick={this.handleDebtFilter}
           >

@@ -39,6 +39,9 @@
 		65B2F5562B1D44E099E0BBF7 /* xinshu.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA0D3ADC8D4F41A09640AF5F /* xinshu.ttf */; };
 		8F43F28403764664A4AB3184 /* 日本花园明朝体HanaMin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EC6F4FCDABF44288AFADFCAF /* 日本花园明朝体HanaMin.ttf */; };
 		FB5C0A6E9335437288D10DB8 /* 日系中文毛笔行书.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CA7677469B694D92B3936DC2 /* 日系中文毛笔行书.ttf */; };
+		86057EFF927B4667B438CC0A /* xinshu.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C20683C4610448899B1CAF7D /* xinshu.ttf */; };
+		285DD4EAC8F442DDB42372CE /* 日本花园明朝体HanaMin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B366AECE9EB46C297B84818 /* 日本花园明朝体HanaMin.ttf */; };
+		93DF254D2E5B4D46BDFF1417 /* 日系中文毛笔行书.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E80C4BC818D4001938851B6 /* 日系中文毛笔行书.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -269,6 +272,9 @@
 		EA0D3ADC8D4F41A09640AF5F /* xinshu.ttf */ = {isa = PBXFileReference; name = "xinshu.ttf"; path = "../fonts/xinshu.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		EC6F4FCDABF44288AFADFCAF /* 日本花园明朝体HanaMin.ttf */ = {isa = PBXFileReference; name = "日本花园明朝体HanaMin.ttf"; path = "../fonts/日本花园明朝体HanaMin.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		CA7677469B694D92B3936DC2 /* 日系中文毛笔行书.ttf */ = {isa = PBXFileReference; name = "日系中文毛笔行书.ttf"; path = "../fonts/日系中文毛笔行书.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C20683C4610448899B1CAF7D /* xinshu.ttf */ = {isa = PBXFileReference; name = "xinshu.ttf"; path = "../src/fonts/xinshu.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1B366AECE9EB46C297B84818 /* 日本花园明朝体HanaMin.ttf */ = {isa = PBXFileReference; name = "日本花园明朝体HanaMin.ttf"; path = "../src/fonts/日本花园明朝体HanaMin.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9E80C4BC818D4001938851B6 /* 日系中文毛笔行书.ttf */ = {isa = PBXFileReference; name = "日系中文毛笔行书.ttf"; path = "../src/fonts/日系中文毛笔行书.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -517,6 +523,9 @@
 				EA0D3ADC8D4F41A09640AF5F /* xinshu.ttf */,
 				EC6F4FCDABF44288AFADFCAF /* 日本花园明朝体HanaMin.ttf */,
 				CA7677469B694D92B3936DC2 /* 日系中文毛笔行书.ttf */,
+				C20683C4610448899B1CAF7D /* xinshu.ttf */,
+				1B366AECE9EB46C297B84818 /* 日本花园明朝体HanaMin.ttf */,
+				9E80C4BC818D4001938851B6 /* 日系中文毛笔行书.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -894,6 +903,9 @@
 				65B2F5562B1D44E099E0BBF7 /* xinshu.ttf in Resources */,
 				8F43F28403764664A4AB3184 /* 日本花园明朝体HanaMin.ttf in Resources */,
 				FB5C0A6E9335437288D10DB8 /* 日系中文毛笔行书.ttf in Resources */,
+				86057EFF927B4667B438CC0A /* xinshu.ttf in Resources */,
+				285DD4EAC8F442DDB42372CE /* 日本花园明朝体HanaMin.ttf in Resources */,
+				93DF254D2E5B4D46BDFF1417 /* 日系中文毛笔行书.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -126,7 +126,6 @@ class ZGroupList extends Component {
     const { groups } = this.props.rinko;
     return (
       <ScrollView>
-        <Text>{JSON.stringify(groups)}</Text>
         <List>
           {groups.map((item, index) => (
             <SwipeAction
