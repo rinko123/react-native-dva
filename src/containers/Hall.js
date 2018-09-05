@@ -11,58 +11,11 @@ import { Accordion, List, Button, SwipeAction } from "antd-mobile-rn";
 import { connect } from "react-redux";
 import { NavigationActions, createAction } from "../utils/index";
 import pxToDp from "../utils/pxToDp";
-import { Storage } from "../utils";
+import { toneData } from "../utils/data";
 
 const Item = List.Item;
 const Brief = Item.Brief;
 const Panel = Accordion.Panel;
-
-const toneData = [
-  {
-    tone: "0",
-    string: "⓪"
-  },
-  {
-    tone: "1",
-    string: "①"
-  },
-  {
-    tone: "2",
-    string: "②"
-  },
-  {
-    tone: "3",
-    string: "③"
-  },
-  {
-    tone: "4",
-    string: "④"
-  },
-  {
-    tone: "5",
-    string: "⑤"
-  },
-  {
-    tone: "6",
-    string: "⑥"
-  },
-  {
-    tone: "7",
-    string: "⑦"
-  },
-  {
-    tone: "8",
-    string: "⑧"
-  },
-  {
-    tone: "9",
-    string: "⑨"
-  },
-  {
-    tone: "10",
-    string: "⑩"
-  }
-];
 
 // todo 筛选改为气泡 Popover
 @connect(({ rinko }) => ({ rinko }))
@@ -84,12 +37,12 @@ class Hall extends Component {
     headerRight: (
       <TouchableOpacity
         activeOpacity={1}
-        style={{ backgroundColor: "#3087fc", marginRight: pxToDp(20) }}
+        style={{ backgroundColor: "#3087fc" }}
         onPress={() => {
           _this.setState({ popup: !_this.state.popup });
         }}
       >
-        <Image style={{width:pxToDp(40),height:pxToDp(40)}} source={require("../images/down.png")} />
+        <Image style={{}} source={require("../images/down2.jpg")} />
       </TouchableOpacity>
     ),
     tabBarIcon: ({ tintColor }) => (
@@ -191,11 +144,12 @@ class Hall extends Component {
     const groupWords = [...groups];
     groupWords.map(g => (g.words = words.filter(w => w.groupId === g.id)));
     return (
-      <ScrollView>
-        <View style={styles.container}>
+      <View style={styles.container}>
+
+        <ScrollView>
           <Accordion onChange={this.onChange} defaultActiveKey="2">
             {groupWords.map(group => (
-              <Panel key={group.id} header={group.name}>
+              <Panel key={group.id} header={`${group.name}  ${group.desc}`}>
                 <List>
                   {group.words.map(word => (
                     <SwipeAction
@@ -224,7 +178,10 @@ class Hall extends Component {
                         style={{ height: pxToDp(120) }}
                       >
                         <Text
-                            style={{fontSize:pxToDp(40),color:'rgb(8,27,33)'}}
+                          style={{
+                            fontSize: pxToDp(40),
+                            color: "rgb(8,27,33)"
+                          }}
                           onPress={() =>
                             this.setState({
                               bigWordShow: true,
@@ -246,7 +203,7 @@ class Hall extends Component {
               </Panel>
             ))}
           </Accordion>
-        </View>
+        </ScrollView>
         {this.state.popup ? (
           <View style={styles.mask}>
             <View style={styles.popV}>
@@ -291,7 +248,7 @@ class Hall extends Component {
                 fontSize: pxToDp(100),
                 color: "rgb(16,173,94)",
                 textAlign: "center",
-                fontFamily: "日本花园明朝体HanaMin",
+                fontFamily: "ProW6",
                 paddingTop: pxToDp(30),
                 paddingBottom: pxToDp(30)
               }}
@@ -306,7 +263,7 @@ class Hall extends Component {
             </TouchableOpacity>
           </View>
         ) : null}
-      </ScrollView>
+      </View>
     );
   }
 }

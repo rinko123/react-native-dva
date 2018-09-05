@@ -8,6 +8,7 @@ import { BottomSingleButton } from "../components/BottomSingleButton";
 import { BottomButton } from "../components/BottomButton";
 import { createForm } from "rc-form";
 import { createAction } from "../utils";
+import {getRandomArrayElements} from '../utils/myUtils'
 
 const { Item } = List;
 
@@ -35,7 +36,7 @@ class PracticeContent extends Component {
       );
     }
     this.setState({
-      randomWords: this.getRandomArrayElements(
+      randomWords: getRandomArrayElements(
         practiceWords,
         practiceOption.practiceCount
       )
@@ -101,7 +102,7 @@ class PracticeContent extends Component {
     });
   };
 
-  lastWord = (id, bo) => () => {
+  collectWord = (id, bo) => () => {
     this.state.randomWords.find(it => it.id === id).familiar = !bo;
     const {
       rinko: { words },
@@ -146,17 +147,19 @@ class PracticeContent extends Component {
                 marginRight: pxToDp(26)
               }}
             >
-              <Image source={require("../images/close.png")} />
+              <Image style={{width:pxToDp(40),height:pxToDp(40)}}source={require("../images/close.png")} />
             </TouchableOpacity>
             <Progress
-              style={{}}
-              barStyle={{ borderColor: "rgb(16,173,94)" }}
+              style={{borderRadius:pxToDp(20)}}
+              barStyle={{ borderColor: "rgb(16,173,94)",borderBottomWidth:pxToDp(20),borderRadius:pxToDp(20) }}
               percent={((index + 1) / randomWords.length) * 100}
             />
             <Text
               style={{
-                marginLeft: pxToDp(26)
+                marginLeft: pxToDp(26),
+                  fontSize:pxToDp(40)
               }}
+              onPress={this.onAdd}
             >
               {this.state.index + 1}/{randomWords.length}
             </Text>
@@ -415,7 +418,7 @@ class PracticeContent extends Component {
         </View>
 
         <BottomButton
-          funs={[this.lastWord(word.id, word.familiar), this.nextWord]}
+          funs={[this.collectWord(word.id, word.familiar), this.nextWord]}
           texts={[word.familiar ? "收藏" : "取消收藏", "下一个"]}
         />
       </View>

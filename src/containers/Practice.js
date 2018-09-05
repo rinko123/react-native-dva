@@ -4,6 +4,7 @@ import { List, Button, Tag } from "antd-mobile-rn";
 import { connect } from "react-redux";
 import pxToDp from "../utils/pxToDp";
 import { createAction, NavigationActions } from "../utils";
+import Toast from "react-native-root-toast";
 
 @connect(({ rinko }) => ({ rinko }))
 class Practice extends Component {
@@ -98,10 +99,19 @@ class Practice extends Component {
       })
     );
   };
-  // 筛选债权
+
   handleDebtFilter = () => {
-    const { dispatch } = this.props;
-    dispatch(NavigationActions.navigate({ routeName: "PracticeContent" }));
+    const {
+      dispatch,
+      rinko: { practiceOption }
+    } = this.props;
+    if (practiceOption.practiceGroups.length === 0) {
+      Toast.show("请选择要抽查的组");
+    } else if (practiceOption.testWord) {
+      dispatch(NavigationActions.navigate({ routeName: "PracticeContent" }));
+    } else {
+      dispatch(NavigationActions.navigate({ routeName: "PracticeWrite" }));
+    }
   };
 
   render() {
@@ -257,7 +267,7 @@ class Practice extends Component {
                   activeStyle={false}
                   onClick={this.selectPracticeType(false)}
                 >
-                  <Text>测试意思</Text>
+                  <Text>测试手写</Text>
                 </Button>
               </View>
             </View>

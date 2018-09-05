@@ -23,6 +23,7 @@ import ZGroupDetail from "./containers/ZGroupDetail";
 import ZAddGroup from "./containers/ZAddGroup";
 import ZAddWord from "./containers/ZAddWord";
 import PracticeContent from "./containers/PracticeContent";
+import PracticeWrite from "./containers/PracticeWrite";
 import TestDrawer from "./containers/tests/TestDrawer";
 import { createAction, Storage } from "./utils";
 import Toast from "react-native-root-toast";
@@ -72,7 +73,8 @@ const AppNavigator = SwitchNavigator(
   {
     // 以下不能后退页面 禁止返回
     Main: { screen: MainNavigator },
-    PracticeContent: { screen: PracticeContent }
+    PracticeContent: { screen: PracticeContent },
+    PracticeWrite: { screen: PracticeWrite }
   },
   {
     headerMode: "none",

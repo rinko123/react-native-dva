@@ -89,7 +89,6 @@ class ZGroupDetail extends Component {
       const words = this.props.rinko.words.filter(it => it.groupId === groupId);
       return (
         <ScrollView>
-          <Text>{JSON.stringify(words)}</Text>
           <List>
             {words.map((item, index) => (
               <View key={item.id}>

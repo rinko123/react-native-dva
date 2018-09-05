@@ -70,7 +70,7 @@ export default {
     //   groups:[],
     practiceOption: {
       isCourse: true,
-      practiceGroups: [],
+      practiceGroups: [2],
       practiceCount: 10,
       testWord: true
     }
