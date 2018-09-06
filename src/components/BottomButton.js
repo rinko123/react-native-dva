@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     margin: pxToDp(26)
   },
   lastBtn: {
-    borderWidth: pxToDp(1),
+    borderWidth: pxToDp(3),
     borderColor: "rgb(16,173,94)",
     marginRight: pxToDp(26)
   },

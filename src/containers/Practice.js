@@ -36,7 +36,7 @@ class Practice extends Component {
     } = this.props;
     dispatch(
       createAction("rinko/updateState")({
-        practiceOption: { ...practiceOption, isCourse }
+        practiceOption: { ...practiceOption, isCourse, practiceGroups: [] }
       })
     );
   };
@@ -274,7 +274,10 @@ class Practice extends Component {
           </ScrollView>
         </View>
         <View style={styles.bottomV}>
-          <Button style={styles.bottomBtn} onClick={this.resetDebtFilter}>
+          <Button
+            style={[styles.bottomBtn, { borderRadius: 0 }]}
+            onClick={this.resetDebtFilter}
+          >
             <Text style={styles.resetT}>重置</Text>
           </Button>
           <Button

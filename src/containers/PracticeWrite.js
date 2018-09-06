@@ -71,7 +71,7 @@ class PracticeWrite extends Component {
   };
 
   gotoHall = () => {
-    this.props.dispatch(NavigationActions.navigate({ routeName: "Main" }));
+      this.props.dispatch(NavigationActions.navigate({ routeName: "Practice" }));
   };
 
   showAnswer = () => {

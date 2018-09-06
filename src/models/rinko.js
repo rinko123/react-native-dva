@@ -70,10 +70,11 @@ export default {
     //   groups:[],
     practiceOption: {
       isCourse: true,
-      practiceGroups: [2],
+      practiceGroups: [],
       practiceCount: 10,
       testWord: true
-    }
+    },
+    imgId: 1,
   },
   reducers: {
     updateState(state, { payload }) {

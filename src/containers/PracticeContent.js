@@ -8,7 +8,7 @@ import { BottomSingleButton } from "../components/BottomSingleButton";
 import { BottomButton } from "../components/BottomButton";
 import { createForm } from "rc-form";
 import { createAction } from "../utils";
-import {getRandomArrayElements} from '../utils/myUtils'
+import { getRandomArrayElements } from "../utils/myUtils";
 
 const { Item } = List;
 
@@ -123,7 +123,7 @@ class PracticeContent extends Component {
   };
 
   gotoHall = () => {
-    this.props.dispatch(NavigationActions.navigate({ routeName: "Main" }));
+    this.props.dispatch(NavigationActions.navigate({ routeName: "Practice" }));
   };
 
   render() {
@@ -147,17 +147,24 @@ class PracticeContent extends Component {
                 marginRight: pxToDp(26)
               }}
             >
-              <Image style={{width:pxToDp(40),height:pxToDp(40)}}source={require("../images/close.png")} />
+              <Image
+                style={{ width: pxToDp(40), height: pxToDp(40) }}
+                source={require("../images/close.png")}
+              />
             </TouchableOpacity>
             <Progress
-              style={{borderRadius:pxToDp(20)}}
-              barStyle={{ borderColor: "rgb(16,173,94)",borderBottomWidth:pxToDp(20),borderRadius:pxToDp(20) }}
+              style={{ borderRadius: pxToDp(20) }}
+              barStyle={{
+                borderColor: "rgb(16,173,94)",
+                borderBottomWidth: pxToDp(20),
+                borderRadius: pxToDp(20)
+              }}
               percent={((index + 1) / randomWords.length) * 100}
             />
             <Text
               style={{
                 marginLeft: pxToDp(26),
-                  fontSize:pxToDp(40)
+                fontSize: pxToDp(40)
               }}
               onPress={this.onAdd}
             >

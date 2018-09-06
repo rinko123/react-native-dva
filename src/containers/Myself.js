@@ -1,13 +1,14 @@
 import React, { Component } from "react";
-import { Text, View, Image, StyleSheet } from "react-native";
+import { Text, View, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { List } from "antd-mobile-rn";
 import { connect } from "react-redux";
 import pxToDp from "../utils/pxToDp";
-import { NavigationActions } from "../utils/index";
+import { createAction, NavigationActions } from "../utils/index";
+import { imageList } from "../utils/data";
 
 const { Item } = List;
 
-@connect()
+@connect(({ rinko }) => ({ rinko }))
 class Myself extends Component {
   static navigationOptions = {
     headerTitle: (
@@ -33,16 +34,70 @@ class Myself extends Component {
   gotoWordGroup = () => {
     const { dispatch, navigation } = this.props;
     dispatch(NavigationActions.navigate({ routeName: "ZGroupList" }));
-    //   navigation.navigate("ZGroupList");
+  };
+  changeImage = id => () => {
+    const { dispatch } = this.props;
+    if (id < 6) {
+      dispatch(
+        createAction("rinko/updateState")({
+          imgId: id + 1
+        })
+      );
+    } else {
+      dispatch(
+        createAction("rinko/updateState")({
+          imgId: 1
+        })
+      );
+    }
   };
 
   render() {
+    const { imgId } = this.props.rinko;
     return (
       <View style={styles.wrapper}>
-        <Image
-          source={require("../images/mine.jpg")}
-          style={{ height: pxToDp(530), width: pxToDp(750) }}
-        />
+        <TouchableOpacity
+          style={{ backgroundColor: "rgb(0,0,0)" }}
+          onPress={this.changeImage(imgId)}
+          activeOpacity={1}
+        >
+          {imgId === 1 && (
+            <Image
+              source={require(`../images/phos.jpg`)}
+              style={{ height: pxToDp(530), width: pxToDp(750) }}
+            />
+          )}
+          {imgId === 2 && (
+            <Image
+              source={require(`../images/cinnabar.jpg`)}
+              style={{ height: pxToDp(530), width: pxToDp(750) }}
+            />
+          )}
+          {imgId === 3 && (
+            <Image
+              source={require(`../images/diamond.jpg`)}
+              style={{ height: pxToDp(530), width: pxToDp(750) }}
+            />
+          )}
+          {imgId === 4 && (
+            <Image
+              source={require(`../images/bort.jpg`)}
+              style={{ height: pxToDp(530), width: pxToDp(750) }}
+            />
+          )}
+          {imgId === 5 && (
+            <Image
+              source={require(`../images/amethyst.jpg`)}
+              style={{ height: pxToDp(530), width: pxToDp(750) }}
+            />
+          )}
+          {imgId === 6 && (
+            <Image
+              source={require(`../images/phos-cinnabar.jpg`)}
+              style={{ height: pxToDp(530), width: pxToDp(750) }}
+            />
+          )}
+        </TouchableOpacity>
         <View style={styles.contentList}>
           <List className="my-list">
             <Item
@@ -55,7 +110,7 @@ class Myself extends Component {
                 />
               }
             >
-              课程单词
+              &nbsp;&nbsp;课程单词
             </Item>
           </List>
         </View>

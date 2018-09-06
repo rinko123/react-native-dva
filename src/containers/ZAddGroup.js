@@ -45,7 +45,8 @@ class ZAddGroup extends Component {
 
         if (typeof (params && params.index) === "number") {
           oldGroups.splice(params.index, 1, {
-            ...group,id:params.group.id
+            ...group,
+            id: params.group.id
           });
         } else {
           oldGroups.push({ ...group, id: new Date().getTime() });
@@ -74,7 +75,7 @@ class ZAddGroup extends Component {
     const { getFieldProps, getFieldError } = this.props.form;
     const { params } = this.props.navigation.state;
     return (
-      <View>
+      <View style={styles.container}>
         <List>
           <InputItem
             {...getFieldProps("name", {
@@ -104,9 +105,8 @@ class ZAddGroup extends Component {
           >
             <Text style={styles.inputT}>描述</Text>
           </InputItem>
-
-          <BottomSingleButton fun={this.handleAdd} text="添加" />
         </List>
+        <BottomSingleButton fun={this.handleAdd} text="添加" />
       </View>
     );
   }
@@ -115,7 +115,8 @@ class ZAddGroup extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgb(244,245,248)"
+    backgroundColor: "rgb(244,245,248)",
+    justifyContent: "space-between"
   },
   lastbtn: {
     flexDirection: "row",

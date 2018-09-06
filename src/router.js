@@ -148,6 +148,15 @@ class Router extends PureComponent {
         );
       }
     });
+      Storage.get("imgId").then(imgId => {
+          if (imgId) {
+              dispatch(
+                  createAction("rinko/updateState")({
+                      imgId
+                  })
+              );
+          }
+      });
     BackHandler.addEventListener("hardwareBackPress", this.backHandle);
   }
 
@@ -165,6 +174,7 @@ class Router extends PureComponent {
     if (nextAppState === "background") {
       Storage.set("groups", this.props.rinko.groups);
       Storage.set("words", this.props.rinko.words);
+      Storage.set("imgId", this.props.rinko.imgId);
       console.log("更新完成 background");
     }
   };
@@ -182,6 +192,7 @@ class Router extends PureComponent {
 
     Storage.set("groups", this.props.rinko.groups);
     Storage.set("words", this.props.rinko.words);
+    Storage.set("imgId", this.props.rinko.imgId);
     console.log("更新完成 exit");
     this.lastBackPressed = Date.now();
     Toast.show("再按一次退出应用");

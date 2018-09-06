@@ -11,8 +11,9 @@ import {
 import { SwipeAction, List } from "antd-mobile-rn";
 import { connect } from "react-redux";
 import Toast from "react-native-root-toast";
-import { createAction, NavigationActions, Storage } from "../utils";
+import { createAction, NavigationActions } from "../utils";
 import pxToDp from "../utils/pxToDp";
+import { toneData } from "../utils/data";
 
 const Item = List.Item;
 const Brief = Item.Brief;
@@ -108,8 +109,9 @@ class ZGroupDetail extends Component {
                   <List.Item multipleLine extra={item.mean}>
                     {item.word}{" "}
                     <Brief>
-                      {item.alias}&nbsp;&nbsp;
-                      {item.tone}
+                      {item.alias}
+                      &nbsp;&nbsp;
+                      {toneData.find(it => it.tone === item.tone).string}
                     </Brief>
                   </List.Item>
                 </SwipeAction>

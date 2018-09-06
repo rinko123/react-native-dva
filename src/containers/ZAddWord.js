@@ -51,7 +51,7 @@ class ZAddWord extends Component {
             tone: values.tone,
             mean: values.mean,
             id: new Date().getTime(),
-              familiar:true
+            familiar: true
           };
           dispatch(
             createAction("rinko/updateState")({ words: [...words, word] })
@@ -81,7 +81,7 @@ class ZAddWord extends Component {
   render() {
     const { getFieldProps, getFieldError } = this.props.form;
     return (
-      <View>
+      <View style={styles.container}>
         <List>
           <InputItem
             {...getFieldProps("word", {
@@ -159,9 +159,8 @@ class ZAddWord extends Component {
               {getFieldError("mean") ? getFieldError("mean").join(",") : ""}
             </Text>
           </View>
-
-          <BottomSingleButton fun={this.handleAdd} text="添加" />
         </List>
+        <BottomSingleButton fun={this.handleAdd} text="添加" />
       </View>
     );
   }
@@ -170,7 +169,8 @@ class ZAddWord extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgb(244,245,248)"
+    backgroundColor: "rgb(244,245,248)",
+    justifyContent: "space-between"
   },
   lastbtn: {
     flexDirection: "row",

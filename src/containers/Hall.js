@@ -42,7 +42,7 @@ class Hall extends Component {
           _this.setState({ popup: !_this.state.popup });
         }}
       >
-        <Image style={{}} source={require("../images/down2.jpg")} />
+        <Image source={require("../images/left-hand.png")} />
       </TouchableOpacity>
     ),
     tabBarIcon: ({ tintColor }) => (
@@ -60,7 +60,8 @@ class Hall extends Component {
     toneShow: true,
     meanShow: true,
     bigWordShow: false,
-    bigWord: ""
+    bigWord: "",
+    collectShow: false // 只显示收藏
   };
 
   componentWillMount() {
@@ -139,13 +140,22 @@ class Hall extends Component {
   };
 
   render() {
-    const { wordShow, aliasShow, toneShow, meanShow } = this.state;
+    const { wordShow, aliasShow, toneShow, meanShow, collectShow } = this.state;
     const { groups, words } = this.props.rinko;
-    const groupWords = [...groups];
-    groupWords.map(g => (g.words = words.filter(w => w.groupId === g.id)));
+    let groupWords = [...groups];
+    if (!collectShow) {
+      groupWords.map(g => (g.words = words.filter(w => w.groupId === g.id)));
+    } else {
+      groupWords.map(
+        g =>
+          (g.words = words.filter(
+            w => w.groupId === g.id && w.familiar === false
+          ))
+      );
+      groupWords = groupWords.filter(it => it.words.length !== 0);
+    }
     return (
       <View style={styles.container}>
-
         <ScrollView>
           <Accordion onChange={this.onChange} defaultActiveKey="2">
             {groupWords.map(group => (
@@ -180,7 +190,7 @@ class Hall extends Component {
                         <Text
                           style={{
                             fontSize: pxToDp(40),
-                            color: "rgb(8,27,33)"
+                            color: word.familiar ? "rgb(8,27,33)" : "#00BFFF"
                           }}
                           onPress={() =>
                             this.setState({
@@ -232,8 +242,25 @@ class Hall extends Component {
                 <Text style={styles.popT}>隐藏意思</Text>
               </Button>
             </View>
+            <View style={styles.popV}>
+              <TouchableOpacity
+                style={{ flexGrow: 1 }}
+                onPress={() => this.setState({ popup: false })}
+              >
+                <View />
+              </TouchableOpacity>
+              <Button
+                style={{ width: "25%" }}
+                onClick={() => this.setState({ collectShow: !collectShow })}
+              >
+                <Text style={styles.popT}>
+                  {collectShow ? "显示全部" : "显示收藏"}
+                </Text>
+              </Button>
+            </View>
             <TouchableOpacity
               style={styles.maskClick}
+              activeOpacity={1}
               onPress={() => this.setState({ popup: false })}
             >
               <View />
@@ -291,13 +318,14 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0,0,0,.1)"
   },
   popV: {
-    flexDirection: "row"
+    flexDirection: "row",
+    backgroundColor: "rgba(0,0,0,.1)"
   },
   popB: {
     flex: 1
   },
   popT: {
-    fontSize: pxToDp(30),
+    fontSize: pxToDp(28),
     color: "rgb(121,154,42)"
   },
   blackT: {
