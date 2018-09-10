@@ -40,51 +40,82 @@ class ZAddWord extends Component {
       dispatch
     } = this.props;
     const { params } = this.props.navigation.state;
-    if (params && params.group && params.group.id) {
-      form.validateFields((err, values) => {
-        console.log({ err, values });
-        if (!err) {
-          const word = {
-            groupId: params.group.id,
-            word: values.word,
-            alias: values.alias,
-            tone: values.tone,
-            mean: values.mean,
-            id: new Date().getTime(),
-            familiar: true
-          };
+    form.validateFields((err, values) => {
+      console.log({ err, values });
+      if (!err) {
+        const word = {
+          word: values.word,
+          alias: values.alias,
+          tone: values.tone,
+          mean: values.mean,
+          familiar: true,
+          spell: values.spell
+        };
+        if (params && params.word && params.word.id) {
+          let newWord = words.find(it => it.id === params.word.id);
+          newWord.word = word.word;
+          newWord.alias = word.alias;
+          newWord.tone = word.tone;
+          newWord.mean = word.mean;
+          newWord.spell = word.spell;
+          dispatch(createAction("rinko/updateState")({ words }));
+        } else {
           dispatch(
-            createAction("rinko/updateState")({ words: [...words, word] })
+            createAction("rinko/updateState")({
+              words: [
+                ...words,
+                { ...word, id: new Date().getTime(), groupId: params.group.id }
+              ]
+            })
           );
-          const resetAction = NavigationActions.reset({
-            index: 2,
-            actions: [
-              NavigationActions.navigate({
-                routeName: "HomeNavigator",
-                action: NavigationActions.navigate({ routeName: "Myself" })
-              }),
-              NavigationActions.navigate({ routeName: "ZGroupList" }),
-              NavigationActions.navigate({
-                routeName: "ZGroupDetail",
-                params: { group: params.group }
-              })
-            ]
-          });
-          dispatch(resetAction);
         }
-      });
-    } else {
-      Toast.show("出现了一个bug！");
-    }
+        const resetAction = NavigationActions.reset({
+          index: 2,
+          actions: [
+            NavigationActions.navigate({
+              routeName: "HomeNavigator",
+              action: NavigationActions.navigate({ routeName: "Myself" })
+            }),
+            NavigationActions.navigate({ routeName: "ZGroupList" }),
+            NavigationActions.navigate({
+              routeName: "ZGroupDetail",
+              params: { group: params.group }
+            })
+          ]
+        });
+        dispatch(resetAction);
+      }
+    });
   };
 
   render() {
     const { getFieldProps, getFieldError } = this.props.form;
+    const { params } = this.props.navigation.state;
     return (
       <View style={styles.container}>
         <List>
           <InputItem
+            {...getFieldProps("spell", {
+              initialValue: params && params.word && params.word.spell,
+              rules: [
+                {
+                  required: true,
+                  message: "请输入罗马音拼写"
+                }
+              ]
+            })}
+            placeholder="请输入"
+          >
+            <Text style={styles.inputT}>拼写</Text>
+          </InputItem>
+          <View style={styles.inputErrWrap}>
+            <Text style={styles.inputErr}>
+              {getFieldError("spell") ? getFieldError("spell").join(",") : ""}
+            </Text>
+          </View>
+          <InputItem
             {...getFieldProps("word", {
+              initialValue: params && params.word && params.word.word,
               rules: [
                 {
                   required: true,
@@ -104,6 +135,7 @@ class ZAddWord extends Component {
 
           <InputItem
             {...getFieldProps("alias", {
+              initialValue: params && params.word && params.word.alias,
               rules: [
                 {
                   required: true,
@@ -123,6 +155,7 @@ class ZAddWord extends Component {
 
           <InputItem
             {...getFieldProps("tone", {
+              initialValue: params && params.word && params.word.tone,
               rules: [
                 {
                   required: true,
@@ -143,6 +176,7 @@ class ZAddWord extends Component {
 
           <InputItem
             {...getFieldProps("mean", {
+              initialValue: params && params.word && params.word.mean,
               rules: [
                 {
                   required: true,

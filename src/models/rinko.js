@@ -12,7 +12,8 @@ export default {
         tone: "0",
         mean: "阿佐老师",
         id: 1,
-        familiar: true
+        familiar: true,
+          spell:'azls11',
       },
       {
         groupId: 2,
@@ -21,7 +22,7 @@ export default {
         tone: "1",
         mean: "阿佐老师21",
         id: 2,
-        familiar: true
+        familiar: true,spell:'azls21',
       },
       {
         groupId: 2,
@@ -30,7 +31,7 @@ export default {
         tone: "2",
         mean: "阿佐老师22",
         id: 3,
-        familiar: true
+        familiar: true,spell:'azls22',
       },
 
       {
@@ -40,7 +41,7 @@ export default {
         tone: "3",
         mean: "阿佐老师31",
         id: 4,
-        familiar: true
+        familiar: true,spell:'azls31',
       },
       {
         groupId: 3,
@@ -49,7 +50,7 @@ export default {
         tone: "4",
         mean: "阿佐老师32",
         id: 5,
-        familiar: true
+        familiar: true,spell:'azls32',
       },
       {
         groupId: 3,
@@ -58,7 +59,7 @@ export default {
         tone: "5",
         mean: "阿佐老师33",
         id: 6,
-        familiar: true
+        familiar: true,spell:'azls33',
       }
     ],
     groups: [

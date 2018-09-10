@@ -48,7 +48,10 @@ class PracticeContent extends Component {
     randomWords: [],
     index: 0,
     checkedTone: "0",
-    errorShow: false
+    errorShow: false,
+    spellShow:false,
+    wordShow:false,
+    aliasShow:false,
   };
 
   onAdd = () => {
@@ -183,12 +186,41 @@ class PracticeContent extends Component {
             {word.mean}
           </Text>
 
+            <Text
+                style={
+                    errorShow && getFieldError("spell") ? styles.errorT : styles.fieldT
+                }
+                onPress={()=>this.setState({spellShow:!this.state.spellShow})}
+            >
+                拼写 {this.state.spellShow&&<Text>{word.spell}</Text>}
+            </Text>
+            <InputItem
+                {...getFieldProps("spell", {
+                    rules: [
+                        {
+                            validator: (rule, value, callback) => {
+                                if (value !== word.spell) {
+                                    callback("罗马音拼写错误");
+                                } else {
+                                    callback();
+                                }
+                            }
+                        }
+                    ]
+                })}
+                clear
+                placeholder="请输入"
+                type="text"
+                style={[styles.inputItem]}
+            />
+
           <Text
             style={
               errorShow && getFieldError("word") ? styles.errorT : styles.fieldT
             }
+            onPress={()=>this.setState({wordShow:!this.state.wordShow})}
           >
-            单词
+              单词 {this.state.wordShow&&<Text>{word.word}</Text>}
           </Text>
           <InputItem
             {...getFieldProps("word", {
@@ -216,8 +248,9 @@ class PracticeContent extends Component {
                   ? styles.errorT
                   : styles.fieldT
               }
+              onPress={()=>this.setState({aliasShow:!this.state.aliasShow})}
             >
-              假名
+              假名 {this.state.aliasShow&&<Text>{word.alias}</Text>}
             </Text>
             <InputItem
               {...getFieldProps("alias", {

@@ -48,6 +48,10 @@ class ZGroupDetail extends Component {
     )
   });
 
+  state = {
+    showSpell: false
+  };
+
   componentWillMount() {
     // eslint-disable-next-line
     _this3 = this;
@@ -82,6 +86,16 @@ class ZGroupDetail extends Component {
     );
   };
 
+  editWord = (group, word) => () => {
+    const { dispatch } = this.props;
+    dispatch(
+      NavigationActions.navigate({
+        routeName: "ZAddWord",
+        params: { group, word }
+      })
+    );
+  };
+
   render() {
     const { params } = this.props.navigation.state;
 
@@ -98,6 +112,11 @@ class ZGroupDetail extends Component {
                   autoClose
                   right={[
                     {
+                      text: "编辑",
+                      onPress: this.editWord(params.group, item),
+                      style: { backgroundColor: "#108ee9", color: "white" }
+                    },
+                    {
                       text: "删除",
                       onPress: this.deleteWord(item.id),
                       style: { backgroundColor: "#F4333C", color: "white" }
@@ -106,14 +125,21 @@ class ZGroupDetail extends Component {
                   onOpen={() => console.log("global open")}
                   onClose={() => console.log("global close")}
                 >
-                  <List.Item multipleLine extra={item.mean}>
+                  <Item
+                    multipleLine
+                    extra={item.mean}
+                    onClick={()=>this.setState({
+                      showSpell: !this.state.showSpell
+                    })}
+                  >
                     {item.word}{" "}
                     <Brief>
                       {item.alias}
                       &nbsp;&nbsp;
                       {toneData.find(it => it.tone === item.tone).string}
                     </Brief>
-                  </List.Item>
+                  </Item>
+                  {this.state.showSpell && <Item>{item.spell}</Item>}
                 </SwipeAction>
               </View>
             ))}
