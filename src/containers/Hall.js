@@ -11,7 +11,8 @@ import { Accordion, List, Button, SwipeAction } from "antd-mobile-rn";
 import { connect } from "react-redux";
 import { NavigationActions, createAction } from "../utils/index";
 import pxToDp from "../utils/pxToDp";
-import { toneData } from "../utils/data";
+import { aoinData, toneData } from "../utils/data";
+import {getSite} from "../utils/myUtils";
 
 const Item = List.Item;
 const Brief = Item.Brief;
@@ -83,11 +84,12 @@ class Hall extends Component {
 
   signTone = (alias, tone) => {
     const { toneShow } = this.state;
+    const aliasArr = getSite(alias);
     if (tone === "0" || tone === alias.length) {
       return (
         <Text style={styles.blackT}>
-          {alias.substr(0, 1)}
-          <Text style={toneShow && styles.redT}>{alias.substr(1)}</Text>
+          {aliasArr[0]}
+          <Text style={toneShow && styles.redT}>{aliasArr.slice(1).join('')}</Text>
           {toneShow && (
             <Text style={styles.toneT}>
               &nbsp; &nbsp;
@@ -100,8 +102,8 @@ class Hall extends Component {
     if (tone === "1") {
       return (
         <Text style={styles.blackT}>
-          <Text style={toneShow && styles.redT}>{alias.substr(0, 1)}</Text>
-          {alias.substr(1)}
+          <Text style={toneShow && styles.redT}>{aliasArr[0]}</Text>
+            {aliasArr.slice(1).join('')}
           {toneShow && (
             <Text style={styles.toneT}>
               &nbsp; &nbsp; {toneData.find(it => it.tone === tone).string}
@@ -112,9 +114,9 @@ class Hall extends Component {
     }
     return (
       <Text style={styles.blackT}>
-        {alias.substr(0, 1)}
-        <Text style={toneShow && styles.redT}>{alias.substr(1, tone)}</Text>
-        {alias.substr(tone)}
+          {aliasArr[0]}
+        <Text style={toneShow && styles.redT}>{aliasArr.slice(1,tone).join('')}</Text>
+        {aliasArr.slice(tone).join('')}
         {toneShow && (
           <Text style={styles.toneT}>
             &nbsp; &nbsp;
@@ -184,8 +186,18 @@ class Hall extends Component {
                       <Item
                         key={word.id}
                         multipleLine
-                        extra={meanShow && word.mean}
-                        style={{ height: pxToDp(120) }}
+                        extra={
+                          <Text
+                            style={[
+                              word.mean.length > 8
+                                ? styles.greyT2
+                                : styles.greyT
+                            ]}
+                          >
+                            {meanShow && word.mean}
+                          </Text>
+                        }
+                        // style={{ height: pxToDp(230) }}
                       >
                         <Text
                           style={{
@@ -329,11 +341,24 @@ const styles = StyleSheet.create({
     color: "rgb(121,154,42)"
   },
   blackT: {
+    lineHeight: pxToDp(50),
     fontSize: pxToDp(36),
     color: "black"
   },
-  redT: {
+  blackT2: {
+    lineHeight: pxToDp(50),
+    fontSize: pxToDp(24),
+    color: "black"
+  },
+  greyT: {
     fontSize: pxToDp(36),
+    color: "#8B8B83"
+  },
+  greyT2: {
+    fontSize: pxToDp(24),
+    color: "#8B8B83"
+  },
+  redT: {
     color: "red"
   },
   toneT: {

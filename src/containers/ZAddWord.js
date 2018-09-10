@@ -172,10 +172,6 @@ const styles = StyleSheet.create({
     backgroundColor: "rgb(244,245,248)",
     justifyContent: "space-between"
   },
-  lastbtn: {
-    flexDirection: "row",
-    justifyContent: "center"
-  },
   inputErrWrap: {
     height: pxToDp(30),
     flexDirection: "row-reverse",

@@ -463,32 +463,8 @@ const styles = StyleSheet.create({
   inputItem: {
     backgroundColor: "#f5f5f5"
   },
-  sure: {
-    flexDirection: "row",
-    justifyContent: "space-around"
-  },
-  orderBtn: {
-    height: pxToDp(88),
-    width: "90%",
-    backgroundColor: "#1083e6",
-    borderColor: "#1083e6",
-    borderRadius: pxToDp(12),
-    marginBottom: pxToDp(30)
-  },
-  btnText: {
-    fontSize: pxToDp(30),
-    color: "#fff"
-  },
-  last: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: pxToDp(26),
-    marginLeft: pxToDp(40)
-  },
-  tips: {
-    fontSize: pxToDp(24),
-    color: "rgb(170,170,170)"
-  },
+
+
   rateV: {
     flexDirection: "column",
     marginBottom: pxToDp(26)
