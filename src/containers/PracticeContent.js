@@ -12,6 +12,9 @@ import { getRandomArrayElements } from "../utils/myUtils";
 
 const { Item } = List;
 
+/**
+ *
+ */
 @createForm()
 @connect(({ rinko }) => ({ rinko }))
 class PracticeContent extends Component {
@@ -192,7 +195,7 @@ class PracticeContent extends Component {
                 }
                 onPress={()=>this.setState({spellShow:!this.state.spellShow})}
             >
-                拼写 {this.state.spellShow&&<Text>{word.spell}</Text>}
+                拼写 {this.state.spellShow&&<Text style={{color: "rgb(16,173,94)"}}>{word.spell}</Text>}
             </Text>
             <InputItem
                 {...getFieldProps("spell", {
@@ -220,7 +223,7 @@ class PracticeContent extends Component {
             }
             onPress={()=>this.setState({wordShow:!this.state.wordShow})}
           >
-              单词 {this.state.wordShow&&<Text>{word.word}</Text>}
+              单词 {this.state.wordShow&&<Text style={{color: "rgb(16,173,94)"}}>{word.word}</Text>}
           </Text>
           <InputItem
             {...getFieldProps("word", {
@@ -250,7 +253,7 @@ class PracticeContent extends Component {
               }
               onPress={()=>this.setState({aliasShow:!this.state.aliasShow})}
             >
-              假名 {this.state.aliasShow&&<Text>{word.alias}</Text>}
+              假名 {this.state.aliasShow&&<Text style={{color: "rgb(16,173,94)"}}>{word.alias}</Text>}
             </Text>
             <InputItem
               {...getFieldProps("alias", {

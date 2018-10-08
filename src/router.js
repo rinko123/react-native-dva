@@ -25,6 +25,7 @@ import ZAddWord from "./containers/ZAddWord";
 import PracticeContent from "./containers/PracticeContent";
 import PracticeWrite from "./containers/PracticeWrite";
 import TestDrawer from "./containers/tests/TestDrawer";
+import Help from  "./containers/Help"
 import { createAction, Storage } from "./utils";
 import Toast from "react-native-root-toast";
 
@@ -53,6 +54,7 @@ const MainNavigator = StackNavigator(
     ZGroupDetail: { screen: ZGroupDetail },
     ZAddGroup: { screen: ZAddGroup },
     ZAddWord: { screen: ZAddWord },
+    Help: { screen: Help },
     TestDrawer: { screen: TestDrawer }
   },
   {

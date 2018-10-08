@@ -38,7 +38,9 @@ class ZGroupList extends Component {
     headerRight: (
       <Text
         style={{ color: "#fff", marginRight: pxToDp(20) }}
-        onPress={() => _this3.gotoZAddGroup()}
+        onPress={() => {
+          debugger;
+          return _this2.gotoZAddGroup()}}
       >
         添加分组
       </Text>
@@ -47,7 +49,7 @@ class ZGroupList extends Component {
 
   componentWillMount() {
     // eslint-disable-next-line
-    _this3 = this;
+      _this2 = this;
   }
 
   gotoZAddGroup = () => {

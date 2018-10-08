@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { List } from "antd-mobile-rn";
 import { connect } from "react-redux";
 import pxToDp from "../utils/pxToDp";
@@ -35,6 +35,12 @@ class Myself extends Component {
     const { dispatch, navigation } = this.props;
     dispatch(NavigationActions.navigate({ routeName: "ZGroupList" }));
   };
+
+  gotoHelp = () => {
+    const { dispatch, navigation } = this.props;
+    dispatch(NavigationActions.navigate({ routeName: "Help" }));
+  };
+
   changeImage = id => () => {
     const { dispatch } = this.props;
     if (id < 6) {
@@ -111,6 +117,18 @@ class Myself extends Component {
               }
             >
               &nbsp;&nbsp;课程单词
+            </Item>
+            <Item
+              onClick={this.gotoHelp}
+              arrow="horizontal"
+              thumb={
+                <Image
+                  style={styles.iconList}
+                  source={require("../images/people.png")}
+                />
+              }
+            >
+              &nbsp;&nbsp;帮助
             </Item>
           </List>
         </View>

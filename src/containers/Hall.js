@@ -12,7 +12,7 @@ import { connect } from "react-redux";
 import { NavigationActions, createAction } from "../utils/index";
 import pxToDp from "../utils/pxToDp";
 import { aoinData, toneData } from "../utils/data";
-import {getSite} from "../utils/myUtils";
+import { getSite } from "../utils/myUtils";
 
 const Item = List.Item;
 const Brief = Item.Brief;
@@ -89,7 +89,9 @@ class Hall extends Component {
       return (
         <Text style={styles.blackT}>
           {aliasArr[0]}
-          <Text style={toneShow && styles.redT}>{aliasArr.slice(1).join('')}</Text>
+          <Text style={toneShow && styles.redT}>
+            {aliasArr.slice(1).join("")}
+          </Text>
           {toneShow && (
             <Text style={styles.toneT}>
               &nbsp; &nbsp;
@@ -103,7 +105,7 @@ class Hall extends Component {
       return (
         <Text style={styles.blackT}>
           <Text style={toneShow && styles.redT}>{aliasArr[0]}</Text>
-            {aliasArr.slice(1).join('')}
+          {aliasArr.slice(1).join("")}
           {toneShow && (
             <Text style={styles.toneT}>
               &nbsp; &nbsp; {toneData.find(it => it.tone === tone).string}
@@ -114,9 +116,11 @@ class Hall extends Component {
     }
     return (
       <Text style={styles.blackT}>
-          {aliasArr[0]}
-        <Text style={toneShow && styles.redT}>{aliasArr.slice(1,tone).join('')}</Text>
-        {aliasArr.slice(tone).join('')}
+        {aliasArr[0]}
+        <Text style={toneShow && styles.redT}>
+          {aliasArr.slice(1, tone).join("")}
+        </Text>
+        {aliasArr.slice(tone).join("")}
         {toneShow && (
           <Text style={styles.toneT}>
             &nbsp; &nbsp;
@@ -202,6 +206,7 @@ class Hall extends Component {
                         <Text
                           style={{
                             fontSize: pxToDp(40),
+                            fontFamily: "ProW6",
                             color: word.familiar ? "rgb(8,27,33)" : "#00BFFF"
                           }}
                           onPress={() =>
@@ -231,25 +236,41 @@ class Hall extends Component {
             <View style={styles.popV}>
               <Button
                 style={styles.popB}
-                onClick={() => this.setState({ wordShow: !wordShow })}
+                onClick={() =>
+                  this.setState({
+                    wordShow: !wordShow
+                  })
+                }
               >
                 <Text style={styles.popT}>隐藏单词</Text>
               </Button>
               <Button
                 style={styles.popB}
-                onClick={() => this.setState({ aliasShow: !aliasShow })}
+                onClick={() =>
+                  this.setState({
+                    aliasShow: !aliasShow
+                  })
+                }
               >
                 <Text style={styles.popT}>隐藏假名</Text>
               </Button>
               <Button
                 style={styles.popB}
-                onClick={() => this.setState({ toneShow: !toneShow })}
+                onClick={() =>
+                  this.setState({
+                    toneShow: !toneShow
+                  })
+                }
               >
                 <Text style={styles.popT}>隐藏声调</Text>
               </Button>
               <Button
                 style={styles.popB}
-                onClick={() => this.setState({ meanShow: !meanShow })}
+                onClick={() =>
+                  this.setState({
+                    meanShow: !meanShow
+                  })
+                }
               >
                 <Text style={styles.popT}>隐藏意思</Text>
               </Button>
