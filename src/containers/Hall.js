@@ -79,7 +79,10 @@ class Hall extends Component {
   };
 
   onChange = key => {
-    console.log(key);
+    const { dispatch } = this.props;
+    dispatch(createAction("rinko/updateState")({
+        lastActiveKey:key
+    }));
   };
 
   signTone = (alias, tone) => {
@@ -147,7 +150,7 @@ class Hall extends Component {
 
   render() {
     const { wordShow, aliasShow, toneShow, meanShow, collectShow } = this.state;
-    const { groups, words } = this.props.rinko;
+    const { groups, words, lastActiveKey } = this.props.rinko;
     let groupWords = [...groups];
     if (!collectShow) {
       groupWords.map(g => (g.words = words.filter(w => w.groupId === g.id)));
@@ -163,7 +166,7 @@ class Hall extends Component {
     return (
       <View style={styles.container}>
         <ScrollView>
-          <Accordion onChange={this.onChange} defaultActiveKey="2">
+          <Accordion onChange={this.onChange} activeKey={lastActiveKey} defaultActiveKey="2">
             {groupWords.map(group => (
               <Panel key={group.id} header={`${group.name}  ${group.desc}`}>
                 <List>

@@ -74,10 +74,11 @@ class ZGroupList extends Component {
     } else {
       const { dispatch } = this.props;
       const oldGroups = this.props.rinko.groups;
+      //将第1个替换成第2个
       oldGroups.splice(
         index - 1,
         1,
-        ...oldGroups.splice(index, 1, oldGroups[index - 1])
+        ...oldGroups.splice(index, 1, oldGroups[index - 1]) //将第2个换成第1个，返回第2个
       );
       dispatch(
         createAction("rinko/updateState")({

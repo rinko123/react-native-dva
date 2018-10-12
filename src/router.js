@@ -25,7 +25,7 @@ import ZAddWord from "./containers/ZAddWord";
 import PracticeContent from "./containers/PracticeContent";
 import PracticeWrite from "./containers/PracticeWrite";
 import TestDrawer from "./containers/tests/TestDrawer";
-import Help from  "./containers/Help"
+import Help from "./containers/Help";
 import { createAction, Storage } from "./utils";
 import Toast from "react-native-root-toast";
 
@@ -150,15 +150,24 @@ class Router extends PureComponent {
         );
       }
     });
-      Storage.get("imgId").then(imgId => {
-          if (imgId) {
-              dispatch(
-                  createAction("rinko/updateState")({
-                      imgId
-                  })
-              );
-          }
-      });
+    Storage.get("imgId").then(imgId => {
+      if (imgId) {
+        dispatch(
+          createAction("rinko/updateState")({
+            imgId
+          })
+        );
+      }
+    });
+    Storage.get("lastActiveKey").then(lastActiveKey => {
+      if (lastActiveKey) {
+        dispatch(
+          createAction("rinko/updateState")({
+            lastActiveKey
+          })
+        );
+      }
+    });
     BackHandler.addEventListener("hardwareBackPress", this.backHandle);
   }
 
@@ -177,6 +186,7 @@ class Router extends PureComponent {
       Storage.set("groups", this.props.rinko.groups);
       Storage.set("words", this.props.rinko.words);
       Storage.set("imgId", this.props.rinko.imgId);
+      Storage.set("lastActiveKey", this.props.rinko.lastActiveKey);
       console.log("更新完成 background");
     }
   };
@@ -195,6 +205,8 @@ class Router extends PureComponent {
     Storage.set("groups", this.props.rinko.groups);
     Storage.set("words", this.props.rinko.words);
     Storage.set("imgId", this.props.rinko.imgId);
+    debugger
+    Storage.set("lastActiveKey", this.props.rinko.lastActiveKey);
     console.log("更新完成 exit");
     this.lastBackPressed = Date.now();
     Toast.show("再按一次退出应用");

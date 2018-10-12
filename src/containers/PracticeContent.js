@@ -13,7 +13,7 @@ import { getRandomArrayElements } from "../utils/myUtils";
 const { Item } = List;
 
 /**
- *
+ * 测试拼写、单词、假名、声调页面
  */
 @createForm()
 @connect(({ rinko }) => ({ rinko }))
@@ -52,9 +52,9 @@ class PracticeContent extends Component {
     index: 0,
     checkedTone: "0",
     errorShow: false,
-    spellShow:false,
-    wordShow:false,
-    aliasShow:false,
+    spellShow: false,
+    wordShow: false,
+    aliasShow: false
   };
 
   onAdd = () => {
@@ -70,7 +70,7 @@ class PracticeContent extends Component {
       checkedTone: "0",
       errorShow: false
     });
-    setFieldsValue({ word: "", alias: "" });
+    setFieldsValue({ spell: "", word: "", alias: "" });
   };
 
   getRandomArrayElements = (arr, count) => {
@@ -189,41 +189,49 @@ class PracticeContent extends Component {
             {word.mean}
           </Text>
 
-            <Text
-                style={
-                    errorShow && getFieldError("spell") ? styles.errorT : styles.fieldT
+          <Text
+            style={
+              errorShow && getFieldError("spell")
+                ? styles.errorT
+                : styles.fieldT
+            }
+            onPress={() => this.setState({ spellShow: !this.state.spellShow })}
+          >
+            拼写{" "}
+            {this.state.spellShow && (
+              <Text style={{ color: "rgb(16,173,94)" }}>{word.spell}</Text>
+            )}
+          </Text>
+          <InputItem
+            {...getFieldProps("spell", {
+              rules: [
+                {
+                  validator: (rule, value, callback) => {
+                    if (value !== word.spell) {
+                      callback("罗马音拼写错误");
+                    } else {
+                      callback();
+                    }
+                  }
                 }
-                onPress={()=>this.setState({spellShow:!this.state.spellShow})}
-            >
-                拼写 {this.state.spellShow&&<Text style={{color: "rgb(16,173,94)"}}>{word.spell}</Text>}
-            </Text>
-            <InputItem
-                {...getFieldProps("spell", {
-                    rules: [
-                        {
-                            validator: (rule, value, callback) => {
-                                if (value !== word.spell) {
-                                    callback("罗马音拼写错误");
-                                } else {
-                                    callback();
-                                }
-                            }
-                        }
-                    ]
-                })}
-                clear
-                placeholder="请输入"
-                type="text"
-                style={[styles.inputItem]}
-            />
+              ]
+            })}
+            clear
+            placeholder="请输入"
+            type="text"
+            style={[styles.inputItem]}
+          />
 
           <Text
             style={
               errorShow && getFieldError("word") ? styles.errorT : styles.fieldT
             }
-            onPress={()=>this.setState({wordShow:!this.state.wordShow})}
+            onPress={() => this.setState({ wordShow: !this.state.wordShow })}
           >
-              单词 {this.state.wordShow&&<Text style={{color: "rgb(16,173,94)"}}>{word.word}</Text>}
+            单词{" "}
+            {this.state.wordShow && (
+              <Text style={{ color: "rgb(16,173,94)" }}>{word.word}</Text>
+            )}
           </Text>
           <InputItem
             {...getFieldProps("word", {
@@ -251,9 +259,14 @@ class PracticeContent extends Component {
                   ? styles.errorT
                   : styles.fieldT
               }
-              onPress={()=>this.setState({aliasShow:!this.state.aliasShow})}
+              onPress={() =>
+                this.setState({ aliasShow: !this.state.aliasShow })
+              }
             >
-              假名 {this.state.aliasShow&&<Text style={{color: "rgb(16,173,94)"}}>{word.alias}</Text>}
+              假名{" "}
+              {this.state.aliasShow && (
+                <Text style={{ color: "rgb(16,173,94)" }}>{word.alias}</Text>
+              )}
             </Text>
             <InputItem
               {...getFieldProps("alias", {
@@ -499,7 +512,6 @@ const styles = StyleSheet.create({
   inputItem: {
     backgroundColor: "#f5f5f5"
   },
-
 
   rateV: {
     flexDirection: "column",

@@ -14,6 +14,9 @@ import { toneData } from "../utils/data";
 const Item = List.Item;
 const Brief = Item.Brief;
 
+/**
+ * 测试手写页面
+ */
 @createForm()
 @connect(({ rinko }) => ({ rinko }))
 class PracticeWrite extends Component {

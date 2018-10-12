@@ -96,6 +96,47 @@ class ZGroupDetail extends Component {
     );
   };
 
+  upWord = (word, lastWord) => () => {
+    if (!lastWord) {
+      Toast.show("已经在最上了");
+    } else {
+      const { dispatch } = this.props;
+      const oldWords = this.props.rinko.words;
+      const index = oldWords.findIndex(it => it.id === word.id);
+      const lastIndex = oldWords.findIndex(it => it.id === lastWord.id);
+      oldWords.splice(
+        lastIndex,
+        1,
+        ...oldWords.splice(index, 1, oldWords[lastIndex])
+      );
+      dispatch(
+        createAction("rinko/updateState")({
+          words: oldWords
+        })
+      );
+    }
+  };
+  downWord = (word, nextWord) => () => {
+    if (!nextWord) {
+      Toast.show("已经在最下了");
+    } else {
+        const { dispatch } = this.props;
+        const oldWords = this.props.rinko.words;
+        const index = oldWords.findIndex(it => it.id === word.id);
+        const nextIndex = oldWords.findIndex(it => it.id === nextWord.id);
+        oldWords.splice(
+            nextIndex,
+            1,
+            ...oldWords.splice(index, 1, oldWords[nextIndex])
+        );
+        dispatch(
+            createAction("rinko/updateState")({
+                words: oldWords
+            })
+        );
+    }
+  };
+
   render() {
     const { params } = this.props.navigation.state;
 
@@ -110,6 +151,18 @@ class ZGroupDetail extends Component {
                 <SwipeAction
                   style={{ backgroundColor: "gray" }}
                   autoClose
+                  left={[
+                    {
+                      text: "上移",
+                      onPress: this.upWord(words[index], words[index - 1]),
+                      style: { backgroundColor: "#ddd", color: "white" }
+                    },
+                    {
+                      text: "下移",
+                      onPress: this.downWord(words[index], words[index + 1]),
+                      style: { backgroundColor: "#F4333C", color: "white" }
+                    }
+                  ]}
                   right={[
                     {
                       text: "编辑",
@@ -128,9 +181,11 @@ class ZGroupDetail extends Component {
                   <Item
                     multipleLine
                     extra={item.mean}
-                    onClick={()=>this.setState({
-                      showSpell: !this.state.showSpell
-                    })}
+                    onClick={() =>
+                      this.setState({
+                        showSpell: !this.state.showSpell
+                      })
+                    }
                   >
                     {item.word}{" "}
                     <Brief>
