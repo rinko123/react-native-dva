@@ -61,7 +61,7 @@ class Hall extends Component {
     toneShow: true,
     meanShow: true,
     bigWordShow: false,
-    bigWord: "",
+    bigWord: {},
     collectShow: false // 只显示收藏
   };
 
@@ -80,17 +80,28 @@ class Hall extends Component {
 
   onChange = key => {
     const { dispatch } = this.props;
-    dispatch(createAction("rinko/updateState")({
-        lastActiveKey:key
-    }));
+    dispatch(
+      createAction("rinko/updateState")({
+        lastActiveKey: key
+      })
+    );
   };
 
-  signTone = (alias, tone) => {
+  signTone = word => {
     const { toneShow } = this.state;
+    const { alias, tone } = word;
     const aliasArr = getSite(alias);
     if (tone === "0" || tone === alias.length) {
       return (
-        <Text style={styles.blackT}>
+        <Text
+          style={styles.blackT}
+          onPress={() =>
+            this.setState({
+              bigWordShow: true,
+              bigWord: word
+            })
+          }
+        >
           {aliasArr[0]}
           <Text style={toneShow && styles.redT}>
             {aliasArr.slice(1).join("")}
@@ -106,7 +117,15 @@ class Hall extends Component {
     }
     if (tone === "1") {
       return (
-        <Text style={styles.blackT}>
+        <Text
+          style={styles.blackT}
+          onPress={() =>
+            this.setState({
+              bigWordShow: true,
+              bigWord: word
+            })
+          }
+        >
           <Text style={toneShow && styles.redT}>{aliasArr[0]}</Text>
           {aliasArr.slice(1).join("")}
           {toneShow && (
@@ -118,7 +137,15 @@ class Hall extends Component {
       );
     }
     return (
-      <Text style={styles.blackT}>
+      <Text
+        style={styles.blackT}
+        onPress={() =>
+          this.setState({
+            bigWordShow: true,
+            bigWord: word
+          })
+        }
+      >
         {aliasArr[0]}
         <Text style={toneShow && styles.redT}>
           {aliasArr.slice(1, tone).join("")}
@@ -166,9 +193,22 @@ class Hall extends Component {
     return (
       <View style={styles.container}>
         <ScrollView>
-          <Accordion onChange={this.onChange} activeKey={lastActiveKey} defaultActiveKey="2">
+            <Text style={[styles.blackT2, { paddingLeft: pxToDp(20) }]}>
+                当前单词总数:
+                {words.length}{'  '}
+                未掌握单词总数:
+                {words.filter(it=>it.familiar===false).length}
+            </Text>
+          <Accordion
+            onChange={this.onChange}
+            activeKey={lastActiveKey}
+            defaultActiveKey="2"
+          >
             {groupWords.map(group => (
-              <Panel key={group.id} header={`${group.name}  ${group.desc}`}>
+              <Panel
+                key={group.id}
+                header={`${group.name}  ${group.desc}  ${group.words.length}`}
+              >
                 <List>
                   {group.words.map(word => (
                     <SwipeAction
@@ -200,6 +240,12 @@ class Hall extends Component {
                                 ? styles.greyT2
                                 : styles.greyT
                             ]}
+                            onPress={() =>
+                                this.setState({
+                                    bigWordShow: true,
+                                    bigWord: word
+                                })
+                            }
                           >
                             {meanShow && word.mean}
                           </Text>
@@ -215,7 +261,7 @@ class Hall extends Component {
                           onPress={() =>
                             this.setState({
                               bigWordShow: true,
-                              bigWord: word.word
+                              bigWord: word
                             })
                           }
                         >
@@ -223,7 +269,7 @@ class Hall extends Component {
                         </Text>
                         {aliasShow && (
                           <Brief style={{ width: pxToDp(400) }}>
-                            {this.signTone(word.alias, word.tone)}
+                            {this.signTone(word)}
                           </Brief>
                         )}
                       </Item>
@@ -313,10 +359,28 @@ class Hall extends Component {
                 textAlign: "center",
                 fontFamily: "ProW6",
                 paddingTop: pxToDp(30),
-                paddingBottom: pxToDp(30)
+                paddingBottom: pxToDp(10)
               }}
             >
-              {this.state.bigWord}
+              {this.state.bigWord.word}
+            </Text>
+            <Text
+              style={{
+                backgroundColor: "#fff",
+                color: "rgb(16,173,94)",
+                textAlign: "center"
+              }}
+            >
+              {this.state.bigWord.alias}
+            </Text>
+            <Text
+              style={{
+                backgroundColor: "#fff",
+                color: "rgb(16,173,94)",
+                textAlign: "center"
+              }}
+            >
+              {this.state.bigWord.mean}
             </Text>
             <TouchableOpacity
               style={styles.maskClick}
